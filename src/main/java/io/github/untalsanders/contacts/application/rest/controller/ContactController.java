@@ -1,4 +1,4 @@
-package io.github.untalsanders.contacts.application.web.controller;
+package io.github.untalsanders.contacts.application.rest.controller;
 
 import io.github.untalsanders.contacts.domain.Contact;
 import io.github.untalsanders.contacts.domain.service.ContactService;
