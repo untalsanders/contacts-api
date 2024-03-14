@@ -2,8 +2,8 @@ version: '3.9'
 
 services:
   # Spring Boot App
-  avoristech-app:
-    container_name: avoristech-app-java
+  contacts-api:
+    container_name: contacts-api-java
     build:
       context: .
       dockerfile: Dockerfile
@@ -11,19 +11,19 @@ services:
     environment:
       DB_USER: postgres
       DB_PASS: 12345
-      DB_HOST: avoristech-db
+      DB_HOST: contacts-api-db
       DB_PORT: 5432
-      DB_NAME: avoristech
+      DB_NAME: contacts-api
     ports:
       - "8080:8080"
     depends_on:
-      - avoristech-db
+      - contacts-api-db
     networks:
-      - avoristech
+      - contacts-api
 
   # Database
-  avoristech-db:
-    container_name: avoristech-app-db-postgres
+  contacts-api-db:
+    container_name: contacts-api-db-postgres
     image: postgres
     restart: unless-stopped
     ports:
@@ -31,26 +31,26 @@ services:
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: 12345
-      POSTGRES_DB: avoristech
+      POSTGRES_DB: contacts-api
     networks:
-      - avoristech
+      - contacts-api
 
   # Management Database
-  avoristech-pgadmin:
-    container_name: avoristech-app-pgadmin
+  contacts-api-pgadmin:
+    container_name: contacts-api-pgadmin
     image: dpage/pgadmin4
     restart: unless-stopped
     depends_on:
-      - avoristech-db
+      - contacts-api-db
     ports:
       - "8081:80"
     environment:
-      PGADMIN_DEFAULT_EMAIL: 'avoristech@domain.com'
+      PGADMIN_DEFAULT_EMAIL: 'contacts-api@domain.com'
       PGADMIN_DEFAULT_PASSWORD: 12345
     networks:
-      - avoristech
+      - contacts-api
 
 networks:
-  # Avoristech Network
-  avoristech:
-    name: avoristech-network
+  # Contacts API Network
+  contacts-api:
+    name: contacts-api-network

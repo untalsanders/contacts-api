@@ -4,7 +4,7 @@ plugins {
     id 'java'
 }
 
-group = 'io.github.sandersgutierrez.avoristech'
+group = 'io.github.untalsanders.contacts.api'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = JavaVersion.VERSION_17
 targetCompatibility = JavaVersion.VERSION_17

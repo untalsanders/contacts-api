@@ -2,15 +2,15 @@ openapi: 3.0.3
 
 info:
   version: 0.0.1
-  title: 'AvorisTech Booking API REST'
-  description: AvorisTech Booking of hotel
+  title: 'Contacts API REST'
+  description: Contacts API for management a Contact List
   termsOfService: http://swagger.io/terms/
   license:
     name: MIT
     url: LICENCE
 
 tags:
-  - name: Hotels
+  - name: Contacts
     description: Everything about Hotels
   - name: Search
     description: Everything about Search
@@ -18,7 +18,7 @@ tags:
 servers:
   - url: http://localhost:8080/api
     description: 'DEV: Please configure according to your local environment.'
-  - url: https://sgdev-avoristech-challenge.herokuapp.com/api
+  - url: https://sgdev-contacts-api.onrender.com/api
     description: 'STAGING: Testing Server.'
 
 paths:

@@ -1,11 +1,17 @@
-# MinData Challenge
+# Contacts API
 
 ## :tea: Introduction
 
-This is a demo application for a challenge in selection process for Java Developer in the company
-[MinData](https://www.linkedin.com/company/mindata/).
+Contacts-API is a REST API for managing contact lists as an alternative to the Google Contacts application.
+It does not include all the features of Google Contacts, but we will add more features in the future.
 
-## :checkered_flag: How To Start
+The next image is a representation with UML of the general context of the application. It's based upon the [C4Model](https://c4model.com/) diagrams.
+
+![Context diagram about application](docs/diagrams/images/contacts-api-context-diagram-c4-System_context_diagram_for_Contact_Management_System.svg)
+
+:book: View project docs. [Here](https://github.com/untalsanders/contacts-api/wiki).
+
+## :rocket: How to start
 
    1. Install Java 17, go link for install [SDKMAN](https://sdkman.io/install)
 
@@ -22,7 +28,7 @@ This is a demo application for a challenge in selection process for Java Develop
    3. Clone this repository:
 
       ```shell
-      git clone https://github.com/untalsanders/avoristech-challenge.git
+      git clone https://github.com/untalsanders/contacts-api.git
       ```
 
    4. Run application
@@ -48,7 +54,7 @@ This is a demo application for a challenge in selection process for Java Develop
 
       ```shell
       # Prod Environment
-      DB_HOST=localhost DB_PORT=5432 DB_USER=postgres DB_PASS=12345 DB_NAME=avoristech ./gradlew bootRun --args='--spring.profiles.active=prod --server.port=8080'
+      DB_HOST=localhost DB_PORT=5432 DB_USER=postgres DB_PASS=12345 DB_NAME=contacts_api ./gradlew bootRun --args='--spring.profiles.active=prod --server.port=8080'
       ```
 
 ## :whale: Build and Run with Docker
@@ -57,21 +63,21 @@ This is a demo application for a challenge in selection process for Java Develop
 
       ```shell
       # Build image
-      docker build -t sandersgutierrez/avoristech:latest .
+      docker build -t sandersgutierrez/contacts-api:latest .
       ```
 
    2. **Run a container**
 
       ```shell
       # Create and run a container
-      docker run -p 8080:8080 --name avoristech-app \
+      docker run -p 8080:8080 --name contacts-api \
           --env PORT=8080 \
           --env DB_HOST=localhost \
           --env DB_PORT=5432 \
-          --env DB_NAME=avoristech \
+          --env DB_NAME=contacts_api \
           --env DB_USER=postgres \
           --env DB_PASS=12345 \
-          sandersgutierrez/avoristech:latest
+          sandersgutierrez/contacts-api:latest
       ```
 
 ## :wolf: Author
