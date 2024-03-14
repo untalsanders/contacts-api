@@ -1,4 +1,4 @@
-package io.github.untalsanders.contacts.infrastructure.util;
+package io.github.untalsanders.contacts.infrastructure.persistence.util;
 
 import io.github.untalsanders.contacts.infrastructure.persistence.crud.ContactCrudRepository;
 import io.github.untalsanders.contacts.infrastructure.persistence.entity.ContactEntity;

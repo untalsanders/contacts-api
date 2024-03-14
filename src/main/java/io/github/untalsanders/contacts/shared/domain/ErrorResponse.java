@@ -1,4 +1,4 @@
-package io.github.untalsanders.contacts.shared;
+package io.github.untalsanders.contacts.shared.domain;
 
 import lombok.Getter;
 
