@@ -1,26 +1,47 @@
-@startuml "Contacts API Container Diagram C4Model"
-!include <C4/C4_Container>
+@startuml "Contacts API - Container Diagram C4Model"
+!include styles.puml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
 
 !define ICONURL https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/v2.4.0
 !define FONTAWESOME https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/font-awesome-5
 
 !include ICONURL/common.puml
+!include ICONURL/material/email.puml
 !include ICONURL/devicons/react.puml
 !include ICONURL/devicons2/kotlin.puml
+!include ICONURL/devicons2/android.puml
 !include ICONURL/devicons/java.puml
 !include ICONURL/devicons/postgresql.puml
 !include FONTAWESOME/users.puml
 
-Person(user, "User", "People who need to manage contact list", $sprite="users")
+AddElementTag("softwareSystem", $fontColor=$ELEMENT_FONT_COLOR, $bgColor="#1168bd", $legendText="software system")
+AddRelTag("async", $textColor=$ARROW_FONT_COLOR, $lineColor=$ARROW_COLOR, $lineStyle=DashedLine())
 
-Container(spa, "Resume WEB (SPA)", "React, React Router", "The main interface with which the user interacts from a web browser", $sprite="react")
-Container(apk, "Resume APP (Android App)", "Kotlin", "The main interface with which the user interacts from a mobile", $sprite="kotlin")
-Container(api, "Resume API (REST)", "Java EE, SpringBoot", "Allows you to perform contact lists management operations.", $sprite="java")
-ContainerDb(db, "Database", "PostgreSQL", "Holds info about contacts", $sprite="postgresql")
+title Container diagram for Contact Management System
 
-Rel(user, spa, "Uses", "HTTPS")
-Rel(user, apk, "Uses", "HTTPS")
-Rel(spa, api, "Uses", "HTTPS")
-Rel(apk, api, "Uses", "HTTPS")
-Rel_R(api, db, "Reads/Writes")
+SHOW_PERSON_OUTLINE()
+HIDE_STEREOTYPE()
+
+Person(customer, Customer, "A person who need to manage contact lists.", $sprite="person", $type="Person")
+
+System_Boundary(c1, <font size="16">Contact Management System</font>) {
+    Container(spa, "Single-Page Application", "Container: React and React Router", "Provides all the Contact Management System functionality to customer via their web browser.", $sprite="react")
+    Container(mobile, "Mobile App", "Container: Kotlin", "Provides all the Contact Management System functionality to customer via their mobile device.", $sprite="android")
+    Container(api, "API Application", "Container: Java and Spring MVC", "Provide Contact Management System functionality via a JSON/HTTPS API.", $sprite="java")
+    ContainerDb(db, "Database", "Container: PostgreSQL", "Storage contact information, hashed authentication credentials, access logs, etc.", $sprite="postgresql")
+}
+System_Ext(mail, "E-mail System", "The internal Software Exchange e-mail system.")
+
+Rel(customer, spa, "Uses", "HTTPS")
+Rel(customer, mobile, "Uses", "HTTPS")
+Rel_Back(customer, mail, "Sends e-mails to", $tags="async")
+Rel(spa, api, "Makes API calls to", "JSON/HTTPS")
+Rel(mobile, api, "Makes API calls to", "JSON/HTTPS")
+Rel_R(api, db, "Reads and writes to", "SQL")
+Rel_L(api, mail, "Sends e-mail using", $tags="async")
+
+SHOW_FLOATING_LEGEND()
+Lay_Distance(LEGEND(), db, 1)
+caption \nFigure 2: [Container] Contact Management System
+footer diagram created with PlantUML v. %version() and C4-PlantUML v. C4Version()
 @enduml

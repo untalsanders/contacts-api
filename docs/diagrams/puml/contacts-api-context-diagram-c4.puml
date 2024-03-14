@@ -1,23 +1,29 @@
-@startuml
-!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
+@startuml "Contacts API - Context Diagram C4Model"
+!include styles.puml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
 
-SHOW_PERSON_OUTLINE()
-LAYOUT_WITH_LEGEND()
+LAYOUT_TOP_DOWN()
 HIDE_STEREOTYPE()
+
 
 ' Tags support no spaces in the name (based on the underlining stereotypes, which don't support spaces anymore).
 AddElementTag("softwareSystem", $fontColor=$ELEMENT_FONT_COLOR, $bgColor="#1168bd", $legendText="software system")
 AddRelTag("async", $textColor=$ARROW_FONT_COLOR, $lineColor=$ARROW_COLOR, $lineStyle=DashedLine())
 
-title "System context diagram for Contact Management System"
+title System context diagram for Contact Management System
 
-Person(customer, Customer, "A person who need to manage contact lists.", $sprite="person")
+SHOW_PERSON_OUTLINE()
+
+Person(customer, Customer, "A person who need to manage contact lists.", $sprite="person", $type="Person")
 System(contacts_system, "Contact Management System\n<size:10>[Software System]</size>", "Allows users manage contact lists", $tags="softwareSystem")
-System_Ext(mail_system, "E-mail System", "The internal Software Exchange e-mail system.")
+System_Ext(mail, "E-mail System", "The internal Software Exchange e-mail system.")
 
 Rel(customer, contacts_system, "Add, edit, or delete contacts as needed.")
-Rel_Back(customer, mail_system, "Sends e-mails to", $tags="async")
-Rel_Neighbor(contacts_system, mail_system, "Sends e-mails", "SMTP", $tags="async")
+Rel_Back(customer, mail, "Sends e-mails to", $tags="async")
+Rel_Neighbor(contacts_system, mail, "Sends e-mails", "SMTP", $tags="async")
 
-footer \n\n [System Context] Contact Management System \n diagram created with PlantUML v. %version() and C4-PlantUML v. C4Version()
+SHOW_FLOATING_LEGEND()
+
+caption \nFigure 1: [System Context] Contact Management System
+footer diagram created with PlantUML v. %version() and C4-PlantUML v. C4Version()
 @enduml

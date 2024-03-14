@@ -7,7 +7,7 @@ It does not include all the features of Google Contacts, but we will add more fe
 
 The next image is a representation with UML of the general context of the application. It's based upon the [C4Model](https://c4model.com/) diagrams.
 
-![Context diagram about application](docs/diagrams/images/contacts-api-context-diagram-c4-System_context_diagram_for_Contact_Management_System.svg)
+![Context diagram about application](docs/diagrams/images/contacts-api-context-diagram-c4-System_context_diagram_for_Contact_Management_System.svg){width="100%"}
 
 :book: View project docs. [Here](https://github.com/untalsanders/contacts-api/wiki).
 
