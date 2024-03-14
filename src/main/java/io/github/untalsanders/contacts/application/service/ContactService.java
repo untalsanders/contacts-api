@@ -1,17 +1,16 @@
 package io.github.untalsanders.contacts.application.service;
 
 import io.github.untalsanders.contacts.domain.Contact;
-import io.github.untalsanders.contacts.infrastructure.persistence.ContactRepository;
-import io.github.untalsanders.contacts.shared.exception.SuchElementAlreadyExistsException;
+import io.github.untalsanders.contacts.domain.repository.ContactRepository;
 import io.github.untalsanders.contacts.shared.exception.NoSuchElementFoundException;
-import io.github.untalsanders.contacts.hotel.application.port.in.ContactServicePort;
+import io.github.untalsanders.contacts.shared.exception.SuchElementAlreadyExistsException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Objects;
 
 @Service
-public class ContactService implements ContactServicePort {
+public class ContactService implements io.github.untalsanders.contacts.domain.service.ContactService {
 
     private final ContactRepository contactRepository;
 

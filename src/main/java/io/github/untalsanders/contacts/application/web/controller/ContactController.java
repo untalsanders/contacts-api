@@ -1,7 +1,7 @@
 package io.github.untalsanders.contacts.application.web.controller;
 
-import io.github.untalsanders.contacts.application.service.ContactService;
 import io.github.untalsanders.contacts.domain.Contact;
+import io.github.untalsanders.contacts.domain.service.ContactService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

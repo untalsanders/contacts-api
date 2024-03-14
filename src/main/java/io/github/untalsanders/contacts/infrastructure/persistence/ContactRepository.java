@@ -1,7 +1,6 @@
 package io.github.untalsanders.contacts.infrastructure.persistence;
 
 import io.github.untalsanders.contacts.domain.Contact;
-import io.github.untalsanders.contacts.hotel.application.port.out.ContactRepositoryPort;
 import io.github.untalsanders.contacts.infrastructure.persistence.crud.ContactCrudRepository;
 import io.github.untalsanders.contacts.infrastructure.persistence.entity.ContactEntity;
 import io.github.untalsanders.contacts.infrastructure.persistence.mapper.ContactMapper;
@@ -11,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class ContactRepository implements ContactRepositoryPort {
+public class ContactRepository implements io.github.untalsanders.contacts.domain.repository.ContactRepository {
 
     private final ContactCrudRepository contactCrudRepository;
     private final ContactMapper contactMapper;

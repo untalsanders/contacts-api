@@ -1,10 +1,10 @@
-package io.github.untalsanders.contacts.hotel.application.port.in;
+package io.github.untalsanders.contacts.domain.repository;
 
 import io.github.untalsanders.contacts.domain.Contact;
 
 import java.util.List;
 
-public interface ContactServicePort {
+public interface ContactRepository {
     List<Contact> getAll();
     Contact getById(Long contactId);
     Contact save(Contact contact);
