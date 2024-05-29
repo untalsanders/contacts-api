@@ -28,8 +28,8 @@ public class ContactRepository implements io.github.untalsanders.contacts.domain
     }
 
     @Override
-    public Contact getById(Long hotelId) {
-        return contactCrudRepository.findById(hotelId).map(contactMapper::entityToDomain).orElse(null);
+    public Contact getById(Long contactId) {
+        return contactCrudRepository.findById(contactId).map(contactMapper::entityToDomain).orElse(null);
     }
 
     @Override
