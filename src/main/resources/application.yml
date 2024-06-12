@@ -14,5 +14,10 @@ spring:
     url: jdbc:${database.db-driver}://${database.db-host}:${database.db-port}/${database.db-name}
     username: ${database.db-user}
     password: ${database.db-pass}
-  mvc:
-    throw-exception-if-no-handler-found: true
+
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+

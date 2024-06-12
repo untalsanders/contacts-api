@@ -4,7 +4,7 @@ info:
   version: 0.0.1
   title: 'Contacts API REST'
   description: Contacts API for management a Contact List
-  termsOfService: http://swagger.io/terms/
+  termsOfService: https://swagger.io/terms/
   license:
     name: MIT
     url: LICENCE
