@@ -18,9 +18,9 @@ import java.util.Objects;
 @RestControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(GlobalExceptionHandler.class);
+    private static final Logger LOG = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
-    @Value("${avoristech.trace:false}")
+    @Value("${contacts.trace:false}")
     private boolean printStackTrace;
 
     private ResponseEntity<Object> buildErrorResponse(Exception exception, String message, HttpStatus status, WebRequest request) {
@@ -45,21 +45,21 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ResponseEntity<Object> handleAllUncaughtException(Exception exception, WebRequest request) {
-        LOGGER.error("Unknown error occurred", exception);
+        LOG.error("Unknown error occurred", exception);
         return buildErrorResponse(exception, "Unknown error occurred", HttpStatus.INTERNAL_SERVER_ERROR, request);
     }
 
     @ExceptionHandler(NoSuchElementFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ResponseEntity<Object> handleNoSuchElementFoundException(NoSuchElementFoundException exception, WebRequest request) {
-        LOGGER.error("Failed to find the requested element", exception);
+        LOG.error("Failed to find the requested element", exception);
         return buildErrorResponse(exception, HttpStatus.NOT_FOUND, request);
     }
 
     @ExceptionHandler(SuchElementAlreadyExistsException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ResponseEntity<Object> handleSuchElementAlreadyExistsException(SuchElementAlreadyExistsException exception, WebRequest request) {
-        LOGGER.error("Item already exists", exception);
+        LOG.error("Item already exists", exception);
         return buildErrorResponse(exception, HttpStatus.NOT_FOUND, request);
     }
 }
