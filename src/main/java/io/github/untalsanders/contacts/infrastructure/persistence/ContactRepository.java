@@ -1,54 +1,63 @@
 package io.github.untalsanders.contacts.infrastructure.persistence;
 
-import io.github.untalsanders.contacts.domain.Contact;
+import io.github.untalsanders.contacts.domain.model.Contact;
+import io.github.untalsanders.contacts.domain.port.out.ContactRepositoryPort;
 import io.github.untalsanders.contacts.infrastructure.persistence.crud.ContactCrudRepository;
 import io.github.untalsanders.contacts.infrastructure.persistence.entity.ContactEntity;
 import io.github.untalsanders.contacts.infrastructure.persistence.mapper.ContactMapper;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
-public class ContactRepository implements io.github.untalsanders.contacts.domain.repository.ContactRepository {
+public class ContactRepository implements ContactRepositoryPort {
 
+    private static final Logger log = LoggerFactory.getLogger(ContactRepository.class);
     private final ContactCrudRepository contactCrudRepository;
     private final ContactMapper contactMapper;
 
-    @Autowired
     public ContactRepository(ContactCrudRepository contactCrudRepository, ContactMapper contactMapper) {
         this.contactCrudRepository = contactCrudRepository;
         this.contactMapper = contactMapper;
     }
 
     @Override
-    public List<Contact> getAll() {
-        List<ContactEntity> contactEntityList = contactCrudRepository.findAll();
+    public Contact findById(Long id) {
+        return contactCrudRepository.findById(id).map(contactMapper::entityToDomain).orElse(null);
+    }
+
+    @Override
+    public List<Contact> findAll() {
+        List<ContactEntity> contactEntityList = (List<ContactEntity>) contactCrudRepository.findAll();
         return contactMapper.toContacts(contactEntityList);
     }
 
     @Override
-    public Contact getById(Long contactId) {
-        return contactCrudRepository.findById(contactId).map(contactMapper::entityToDomain).orElse(null);
-    }
-
-    @Override
-    public Contact save(Contact contact) {
+    public void save(Contact contact) {
         ContactEntity contactEntity = contactMapper.domainToEntity(contact);
-        return contactMapper.entityToDomain(contactCrudRepository.save(contactEntity));
+        contactMapper.entityToDomain(contactCrudRepository.save(contactEntity));
     }
 
     @Override
-    public Contact update(Contact contact) {
-        ContactEntity contactEntity = contactMapper.domainToEntity(getById(contact.getId()));
-        contactEntity.setId(contact.getId());
-        contactEntity.setName(contact.getName());
-        return save(contactMapper.entityToDomain(contactEntity));
+    public void update(Contact contact) {
+        ContactEntity contactEntity = contactMapper.domainToEntity(contact);
+        contactEntity.setId(contact.id());
+        contactEntity.setName(contact.name());
+        contactEntity.setPhone(contact.phone());
+        save(contactMapper.entityToDomain(contactEntity));
     }
 
     @Override
-    public void delete(Long contactId) {
-        Contact contact = getById(contactId);
-        contactCrudRepository.deleteById(contact.getId());
+    public void delete(Contact contact) {
+        log.info("Deleting contact: {}", contact.id());
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        log.info("Deleting contact by ID: {}", id);
+        Contact contact = findById(id);
+        contactCrudRepository.deleteById(contact.id());
     }
 }

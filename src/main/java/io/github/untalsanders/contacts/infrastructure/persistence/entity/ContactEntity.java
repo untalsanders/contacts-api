@@ -14,11 +14,15 @@ public class ContactEntity implements Serializable {
     @Column(nullable = false, unique = true)
     private String name;
 
-    protected ContactEntity() {}
+    @Column(nullable = false, unique = true)
+    private String phone;
 
-    public ContactEntity(Long id, String name) {
+    public ContactEntity() {}
+
+    public ContactEntity(Long id, String name, String phone) {
         this.id = id;
         this.name = name;
+        this.phone = phone;
     }
 
     public Long getId() {
@@ -37,8 +41,11 @@ public class ContactEntity implements Serializable {
         this.name = name;
     }
 
-    @Override
-    public String toString() {
-        return String.format("ContactEntity[id='%d', name='%s']", getId(), getName());
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 }

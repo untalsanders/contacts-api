@@ -18,7 +18,7 @@ public class PopulateDB implements InitializingBean {
 
     @Override
     public void afterPropertiesSet() {
-        contactCrudRepository.save(new ContactEntity(1L, "Contact #1"));
-        contactCrudRepository.save(new ContactEntity(2L, "Contact #2"));
+        contactCrudRepository.save(new ContactEntity(1L, "Dayhana", "113052795"));
+        contactCrudRepository.save(new ContactEntity(2L, "Mamá", "3112828304"));
     }
 }

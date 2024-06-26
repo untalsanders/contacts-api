@@ -1,6 +1,6 @@
 package io.github.untalsanders.contacts.infrastructure.persistence.crud;
 
 import io.github.untalsanders.contacts.infrastructure.persistence.entity.ContactEntity;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.CrudRepository;
 
-public interface ContactCrudRepository extends JpaRepository<ContactEntity, Long> {}
+public interface ContactCrudRepository extends CrudRepository<ContactEntity, Long> {}

@@ -1,7 +1,7 @@
-package io.github.untalsanders.contacts.application.rest.controller;
+package io.github.untalsanders.contacts.infrastructure.rest.controller;
 
-import io.github.untalsanders.contacts.domain.Contact;
-import io.github.untalsanders.contacts.domain.service.ContactService;
+import io.github.untalsanders.contacts.domain.model.Contact;
+import io.github.untalsanders.contacts.application.service.ContactServicePort;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,36 +15,36 @@ import java.util.Map;
 @RequestMapping("/contacts")
 public class ContactController {
 
-    private final ContactService contactService;
+    private final ContactServicePort contactServicePort;
 
     @Autowired
-    public ContactController(ContactService contactService) {
-        this.contactService = contactService;
+    public ContactController(ContactServicePort contactServicePort) {
+        this.contactServicePort = contactServicePort;
     }
 
     @GetMapping
     public ResponseEntity<List<Contact>> getAll() {
-        return new ResponseEntity<>(contactService.getAll(), HttpStatus.OK);
+        return new ResponseEntity<>(contactServicePort.getAll(), HttpStatus.OK);
     }
 
     @GetMapping("/{contactId}")
     public ResponseEntity<Contact> getById(@PathVariable("contactId") Long contactId) {
-        return new ResponseEntity<>(contactService.getById(contactId), HttpStatus.OK);
+        return new ResponseEntity<>(contactServicePort.getById(contactId), HttpStatus.OK);
     }
 
     @PostMapping
     public ResponseEntity<Contact> save(@RequestBody Contact contact) {
-        return new ResponseEntity<>(contactService.save(contact), HttpStatus.CREATED);
+        return new ResponseEntity<>(contactServicePort.save(contact), HttpStatus.CREATED);
     }
 
     @PutMapping
     public ResponseEntity<Contact> update(@RequestBody Contact contact) {
-        return new ResponseEntity<>(contactService.update(contact), HttpStatus.CREATED);
+        return new ResponseEntity<>(contactServicePort.update(contact), HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{contactId}")
     public ResponseEntity<Map<String, Boolean>> delete(@PathVariable("contactId") Long contactId) {
-        contactService.delete(contactId);
+        contactServicePort.delete(contactId);
         Map<String, Boolean> response = new HashMap<>();
         response.put("deleted", Boolean.TRUE);
         return ResponseEntity.ok(response);

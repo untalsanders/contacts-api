@@ -1,6 +1,6 @@
 plugins {
-    id 'org.springframework.boot' version '3.3.0'
-    id 'io.spring.dependency-management' version '1.1.4'
+    id 'org.springframework.boot' version '3.3.1'
+    id 'io.spring.dependency-management' version '1.1.5'
     id 'java'
 }
 
@@ -13,21 +13,23 @@ repositories {
     mavenCentral()
 }
 
+ext['junit-jupiter.version'] = '5.10.2'
+ext['assertj.version'] = '3.25.1'
+
 dependencies {
     // Prod
     implementation 'org.apache.commons:commons-lang3:'
     implementation 'org.mapstruct:mapstruct:1.5.5.Final'
     implementation 'org.hibernate.validator:hibernate-validator:8.0.0.Final'
     implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.5.0'
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
     runtimeOnly 'com.h2database:h2'
     runtimeOnly 'org.postgresql:postgresql'
 
     // Dev
     annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.5.Final'
-    annotationProcessor 'org.projectlombok:lombok:'
-    compileOnly 'org.projectlombok:lombok'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
 
     // Test
