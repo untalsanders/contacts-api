@@ -34,18 +34,18 @@ public class ContactService implements ContactServicePort {
 
     @Override
     public Contact save(Contact contact) {
-        Contact contactToSave = jpaContactRepository.findById(contact.id());
+        Contact contactToSave = jpaContactRepository.findById(contact.getId());
         if (Objects.nonNull(contactToSave)) {
             throw new SuchElementAlreadyExistsException(String.format("Contact %s it already exists", contactToSave));
         }
         jpaContactRepository.save(contact);
-        return getById(contact.id());
+        return getById(contact.getId());
     }
 
     @Override
     public Contact update(Contact contact) {
         jpaContactRepository.update(contact);
-        return getById(contact.id());
+        return getById(contact.getId());
     }
 
     @Override

@@ -19,8 +19,7 @@ public class ContactEntity implements Serializable {
 
     public ContactEntity() {}
 
-    public ContactEntity(Long id, String name, String phone) {
-        this.id = id;
+    public ContactEntity(String name, String phone) {
         this.name = name;
         this.phone = phone;
     }
@@ -47,5 +46,14 @@ public class ContactEntity implements Serializable {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    @Override
+    public String toString() {
+        return "ContactEntity{" +
+            "id=" + id +
+            ", name='" + name + '\'' +
+            ", phone='" + phone + '\'' +
+            '}';
     }
 }

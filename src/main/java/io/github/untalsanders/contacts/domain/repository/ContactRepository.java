@@ -24,7 +24,7 @@ public interface ContactRepository {
      * @param id the id to search for
      * @return the <code>Contact</code> if found
      */
-    Contact findById(Long id);
+     Contact findById(Long id);
 
     /**
      * Save a <code>Contact</code> to the data store.

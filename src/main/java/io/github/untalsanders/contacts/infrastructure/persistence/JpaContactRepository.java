@@ -25,7 +25,9 @@ public class JpaContactRepository implements ContactRepository {
 
     @Override
     public Contact findById(Long id) {
-        return contactCrudRepository.findById(id).map(contactMapper::entityToDomain).orElse(null);
+        Contact contactFound = contactCrudRepository.findById(id).map(contactMapper::entityToDomain).orElse(null);
+        log.info("Contact found: {}", contactFound);
+        return contactFound;
     }
 
     @Override
@@ -37,27 +39,29 @@ public class JpaContactRepository implements ContactRepository {
     @Override
     public Contact save(Contact contact) {
         ContactEntity contactEntity = contactMapper.domainToEntity(contact);
-        return contactMapper.entityToDomain(contactCrudRepository.save(contactEntity));
+        Contact contactSaved = contactMapper.entityToDomain(contactCrudRepository.save(contactEntity));
+        log.info("Contact created: {}", contactSaved);
+        return contactSaved;
     }
 
     @Override
     public void update(Contact contact) {
         ContactEntity contactEntity = contactMapper.domainToEntity(contact);
-        contactEntity.setId(contact.id());
-        contactEntity.setName(contact.name());
-        contactEntity.setPhone(contact.phone());
+        contactEntity.setId(contact.getId());
+        contactEntity.setName(contact.getName());
+        contactEntity.setPhone(contact.getPhone());
         save(contactMapper.entityToDomain(contactEntity));
     }
 
     @Override
     public void delete(Contact contact) {
-        log.info("Deleting contact: {}", contact.id());
+        log.info("Deleting contact: {}", contact.getId());
     }
 
     @Override
     public void deleteById(Long id) {
-        log.info("Deleting contact by ID: {}", id);
         Contact contact = findById(id);
-        contactCrudRepository.deleteById(contact.id());
+        log.info("Deleting contact by ID: {}", contact);
+        contactCrudRepository.deleteById(contact.getId());
     }
 }

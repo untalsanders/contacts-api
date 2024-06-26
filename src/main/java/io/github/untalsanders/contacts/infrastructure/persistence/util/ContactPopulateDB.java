@@ -18,7 +18,7 @@ public class ContactPopulateDB implements InitializingBean {
 
     @Override
     public void afterPropertiesSet() {
-        jpaContactRepository.save(new Contact(1L, "Dayhana", "113052795"));
-        jpaContactRepository.save(new Contact(2L, "Mamá", "3112828304"));
+        jpaContactRepository.save(new Contact("Dayhana", "113052795"));
+        jpaContactRepository.save(new Contact("Mamá", "3112828304"));
     }
 }

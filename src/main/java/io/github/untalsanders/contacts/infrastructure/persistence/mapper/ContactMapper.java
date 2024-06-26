@@ -14,9 +14,6 @@ public interface ContactMapper {
 
     ContactMapper INSTANCE = Mappers.getMapper(ContactMapper.class);
 
-    @Mapping(source="id", target="id")
-    @Mapping(source="name", target="name")
-    @Mapping(source="phone", target="phone")
     Contact entityToDomain(ContactEntity contactEntity);
 
     List<Contact> toContacts(List<ContactEntity> contactEntities);

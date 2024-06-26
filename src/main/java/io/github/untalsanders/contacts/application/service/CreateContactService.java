@@ -8,14 +8,14 @@ import org.springframework.stereotype.Service;
 @Service
 public class CreateContactService implements CreateContactUseCase {
 
-    private final JpaContactRepository jpaContactRepository;
+    private final JpaContactRepository repository;
 
     public CreateContactService(JpaContactRepository jpaContactRepository) {
-        this.jpaContactRepository = jpaContactRepository;
+        this.repository = jpaContactRepository;
     }
 
     @Override
     public Contact createContact(Contact contact) {
-        return jpaContactRepository.save(contact);
+        return repository.save(contact);
     }
 }

@@ -1,5 +1,6 @@
 package io.github.untalsanders.contacts.shared.exception;
 
+import io.github.untalsanders.contacts.shared.domain.ErrorMessage;
 import io.github.untalsanders.contacts.shared.domain.ErrorResponse;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.slf4j.Logger;
@@ -31,8 +32,8 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return ResponseEntity.status(status).body(errorResponse);
     }
 
-    private ResponseEntity<Object> buildErrorResponse(Exception exception, HttpStatus status, WebRequest request) {
-        return buildErrorResponse(exception, exception.getMessage(), status, request);
+    private ResponseEntity<Object> buildErrorResponse(Exception exception, WebRequest request) {
+        return buildErrorResponse(exception, exception.getMessage(), HttpStatus.NOT_FOUND, request);
     }
 
     private static final String TRACE = "trace";
@@ -45,21 +46,21 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ResponseEntity<Object> handleAllUncaughtException(Exception exception, WebRequest request) {
-        LOG.error("Unknown error occurred", exception);
-        return buildErrorResponse(exception, "Unknown error occurred", HttpStatus.INTERNAL_SERVER_ERROR, request);
+        LOG.error(ErrorMessage.UNKNOWN_ERROR.getMessage(), exception);
+        return buildErrorResponse(exception, ErrorMessage.UNKNOWN_ERROR.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR, request);
     }
 
     @ExceptionHandler(NoSuchElementFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ResponseEntity<Object> handleNoSuchElementFoundException(NoSuchElementFoundException exception, WebRequest request) {
-        LOG.error("Failed to find the requested element", exception);
-        return buildErrorResponse(exception, HttpStatus.NOT_FOUND, request);
+        LOG.error(ErrorMessage.FAILED_TO_FIND_REQUESTED_ELEMENT.getMessage(), exception);
+        return buildErrorResponse(exception, request);
     }
 
     @ExceptionHandler(SuchElementAlreadyExistsException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ResponseEntity<Object> handleSuchElementAlreadyExistsException(SuchElementAlreadyExistsException exception, WebRequest request) {
-        LOG.error("Item already exists", exception);
-        return buildErrorResponse(exception, HttpStatus.NOT_FOUND, request);
+        LOG.error(ErrorMessage.ITEM_ALREADY_EXISTS.getMessage(), exception);
+        return buildErrorResponse(exception, request);
     }
 }
