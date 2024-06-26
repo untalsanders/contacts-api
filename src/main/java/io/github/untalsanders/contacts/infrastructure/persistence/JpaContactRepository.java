@@ -1,7 +1,7 @@
 package io.github.untalsanders.contacts.infrastructure.persistence;
 
 import io.github.untalsanders.contacts.domain.model.Contact;
-import io.github.untalsanders.contacts.domain.port.out.ContactRepositoryPort;
+import io.github.untalsanders.contacts.domain.repository.ContactRepository;
 import io.github.untalsanders.contacts.infrastructure.persistence.crud.ContactCrudRepository;
 import io.github.untalsanders.contacts.infrastructure.persistence.entity.ContactEntity;
 import io.github.untalsanders.contacts.infrastructure.persistence.mapper.ContactMapper;
@@ -12,13 +12,13 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class ContactRepository implements ContactRepositoryPort {
+public class JpaContactRepository implements ContactRepository {
 
-    private static final Logger log = LoggerFactory.getLogger(ContactRepository.class);
+    private static final Logger log = LoggerFactory.getLogger(JpaContactRepository.class);
     private final ContactCrudRepository contactCrudRepository;
     private final ContactMapper contactMapper;
 
-    public ContactRepository(ContactCrudRepository contactCrudRepository, ContactMapper contactMapper) {
+    public JpaContactRepository(ContactCrudRepository contactCrudRepository, ContactMapper contactMapper) {
         this.contactCrudRepository = contactCrudRepository;
         this.contactMapper = contactMapper;
     }
@@ -35,9 +35,9 @@ public class ContactRepository implements ContactRepositoryPort {
     }
 
     @Override
-    public void save(Contact contact) {
+    public Contact save(Contact contact) {
         ContactEntity contactEntity = contactMapper.domainToEntity(contact);
-        contactMapper.entityToDomain(contactCrudRepository.save(contactEntity));
+        return contactMapper.entityToDomain(contactCrudRepository.save(contactEntity));
     }
 
     @Override

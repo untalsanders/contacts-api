@@ -1,4 +1,4 @@
-package io.github.untalsanders.contacts.domain.port.in;
+package io.github.untalsanders.contacts.application.usecase;
 
 import io.github.untalsanders.contacts.domain.model.Contact;
 

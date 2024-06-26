@@ -1,4 +1,4 @@
-package io.github.untalsanders.contacts.domain.port.out;
+package io.github.untalsanders.contacts.domain.repository;
 
 import io.github.untalsanders.contacts.domain.model.Contact;
 
@@ -6,11 +6,11 @@ import java.util.List;
 
 /**
  * Repository class for <code>Contact</code> domain objets All method names are compliant with Spring Data naming
- * conventions so this interface can easily be extended for Spring Data see here: http://static.springsource.org/spring-data/jpa/docs/current/reference/html/jpa.repositories.html#jpa.query-methods.query-creation
+ * conventions so this interface can easily be extended for Spring Data see here: <a href="http://static.springsource.org/spring-data/jpa/docs/current/reference/html/jpa.repositories.html#jpa.query-methods.query-creation">http://static.springsource.org/spring-data/jpa/docs/current/reference/html/jpa.repositories.html#jpa.query-methods.query-creation</a>
  *
  * @author Sanders Gutiérrez
  */
-public interface ContactRepositoryPort {
+public interface ContactRepository {
     /**
      * Retrieve all <code>Contact</code>s from the data store.
      *
@@ -30,8 +30,9 @@ public interface ContactRepositoryPort {
      * Save a <code>Contact</code> to the data store.
      *
      * @param contact the <code>Contact</code> to save
+     * @return the <code>Contact</code> saved
      */
-    void save(Contact contact);
+    Contact save(Contact contact);
 
     /**
      * Update a <code>Contact</code> to the data store.
