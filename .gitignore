@@ -7,3 +7,6 @@ target
 
 ### Intellij IDEA ###
 .idea/
+
+### H2-Database ###
+src/main/resources/data/*.db
