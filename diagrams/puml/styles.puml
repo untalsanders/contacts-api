@@ -1,0 +1,17 @@
+@startuml
+<style>
+title {
+    FontSize 24
+}
+caption {
+    HorizontalAlignment left
+    FontSize 10
+    FontColor #444
+}
+footer {
+    HorizontalAlignment left
+    Padding 2
+    FontSize 8
+}
+</style>
+@enduml
