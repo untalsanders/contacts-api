@@ -1,8 +1,10 @@
 plugins {
+    id 'java'
     id 'org.springframework.boot' version '3.3.1'
     id 'io.spring.dependency-management' version '1.1.5'
-    id 'java'
 }
+
+apply plugin: 'java'
 
 group = 'io.github.untalsanders.contacts.api'
 version = '0.0.1-SNAPSHOT'
@@ -13,13 +15,17 @@ repositories {
     mavenCentral()
 }
 
-ext['junit-jupiter.version'] = '5.10.2'
-ext['assertj.version'] = '3.25.1'
+ext {
+    junitJupiterVersion = '5.10.2'
+    assertJVersion = '3.25.1'
+    lombokVersion = '1.18.34'
+    mapStructVersion = '1.5.5.Final'
+}
 
 dependencies {
     // Prod
     implementation 'org.apache.commons:commons-lang3:'
-    implementation 'org.mapstruct:mapstruct:1.5.5.Final'
+    implementation "org.mapstruct:mapstruct:${mapStructVersion}"
     implementation 'org.hibernate.validator:hibernate-validator:8.0.0.Final'
     implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.5.0'
     implementation 'org.springframework.boot:spring-boot-starter-web'
@@ -28,9 +34,14 @@ dependencies {
     runtimeOnly 'com.h2database:h2'
     runtimeOnly 'org.postgresql:postgresql'
 
+    compileOnly "org.projectlombok:lombok:${lombokVersion}"
+
     // Dev
-    annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.5.Final'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
+    // Annotation Processors
+    annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+    annotationProcessor "org.mapstruct:mapstruct-processor:${mapStructVersion}"
 
     // Test
     testImplementation('org.springframework.boot:spring-boot-starter-test') {

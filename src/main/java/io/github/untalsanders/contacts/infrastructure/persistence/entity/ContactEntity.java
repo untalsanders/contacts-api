@@ -1,50 +1,32 @@
 package io.github.untalsanders.contacts.infrastructure.persistence.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import java.io.Serializable;
-
+@Setter
+@Getter
+@NoArgsConstructor
 @Entity
 @Table(name = "contacts")
-public class ContactEntity implements Serializable {
+public class ContactEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
     @Column(nullable = false, unique = true)
-    private String name;
+    private String firstname;
+
+    private String lastname;
 
     @Column(nullable = false, unique = true)
     private String phone;
 
-    public ContactEntity() {}
-
-    public ContactEntity(String name, String phone) {
-        this.name = name;
-        this.phone = phone;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
+    public ContactEntity(Long id, String firstname, String phone) {
         this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
+        this.firstname = firstname;
         this.phone = phone;
     }
 
@@ -52,7 +34,8 @@ public class ContactEntity implements Serializable {
     public String toString() {
         return "ContactEntity{" +
             "id=" + id +
-            ", name='" + name + '\'' +
+            ", firstname='" + firstname + '\'' +
+            ", lastname='" + lastname + '\'' +
             ", phone='" + phone + '\'' +
             '}';
     }

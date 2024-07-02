@@ -1,43 +1,26 @@
 package io.github.untalsanders.contacts.domain.model;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+/**
+ * Simple POJO domain object representing a contact.
+ *
+ * @author Sanders Gutiérrez
+ */
+@Setter
+@Getter
+@NoArgsConstructor
 public class Contact {
     private Long id;
-    private String name;
+    private String firstname;
+    private String lastname;
     private String phone;
 
-    public Contact() {}
-
-    public Contact(Long id, String name, String phone) {
+    public Contact(Long id, String firstname, String phone) {
         this.id = id;
-        this.name = name;
-        this.phone = phone;
-    }
-
-    public Contact(String name, String phone) {
-        this(null, name, phone);
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
+        this.firstname = firstname;
         this.phone = phone;
     }
 
@@ -45,7 +28,8 @@ public class Contact {
     public String toString() {
         return "Contact{" +
             "id=" + id +
-            ", name='" + name + '\'' +
+            ", firstname='" + firstname + '\'' +
+            ", lastname='" + lastname + '\'' +
             ", phone='" + phone + '\'' +
             '}';
     }
