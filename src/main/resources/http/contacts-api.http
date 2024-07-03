@@ -1,0 +1,18 @@
+﻿# Contacts API
+
+###
+# group: Contacts
+# @name List Contacts
+GET {{BASE_URL}}/api/contacts
+
+> {%
+    client.test("GET all contacts returns 200", function () {
+        client.assert(response.status === 200, "Expected 200 but was: " + response.status)
+    })
+%}
+
+###
+@id=2
+# group: Contacts
+# @name Get Contact
+GET {{BASE_URL}}/api/contacts/{{id}}?trace=true
