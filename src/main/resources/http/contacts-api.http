@@ -3,7 +3,7 @@
 ###
 # group: Contacts
 # @name List Contacts
-GET {{BASE_URL}}/api/contacts
+GET {{BASE_URL}}/contacts
 
 > {%
     client.test("GET all contacts returns 200", function () {
@@ -12,7 +12,62 @@ GET {{BASE_URL}}/api/contacts
 %}
 
 ###
-@id=2
+# group: Contacts
+# @name Save Contact
+POST {{BASE_URL}}/contacts
+Content-Type: application/json
+
+{
+    "id": 3,
+    "firstname": "Jackelin",
+    "lastname": "Cadavid",
+    "phone": "1158643071"
+}
+
+> {%
+    client.test("Save Contact returns 201", function () {
+        client.assert(response.status === 201, "Expected 201 but was: " + response.status)
+    })
+%}
+
+###
+@id=3
 # group: Contacts
 # @name Get Contact
-GET {{BASE_URL}}/api/contacts/{{id}}?trace=true
+GET {{BASE_URL}}/contacts/{{id}}?trace=true
+
+> {%
+    client.test("Get Contact returns 200", function () {
+        client.assert(response.status === 200, "Expected 200 but was: " + response.status)
+    })
+%}
+
+###
+# group: Contacts
+# @name Update Contact
+PUT {{BASE_URL}}/contacts/{{id}}
+Content-Type: application/json
+
+{
+    "id": {{id}},
+    "firstname": "Jackelin",
+    "phone": "1158643072"
+}
+
+> {%
+    client.test("Update Contact returns 201", function () {
+        client.assert(response.status === 201, "Expected 201 but was: " + response.status)
+    })
+%}
+
+###
+# group: Contacts
+# @name Delete Contact
+DELETE {{BASE_URL}}/contacts/{{id}}
+
+> {%
+    client.test("Delete Contact returns 200", function () {
+        client.assert(response.status === 200, "Expected 200 but was: " + response.status)
+        client.assert(response.body["deleted"] == true, "Expected object key \"deleted\" equal to \"true\" word but was: " + response.body)
+    })
+%}

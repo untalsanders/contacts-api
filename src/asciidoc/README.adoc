@@ -1,0 +1,46 @@
+// suppress inspection "GrazieInspection" for whole file
+
+:encoding: utf-8
+:lang: es
+:toc: left
+:toc-title: Tabla de contenidos
+:doctype: book
+:imagesdir: ./images
+
+= Contacts-API
+Micro servicio que gestiona información de una lista de contactos.
+
+:numbered!:
+
+[abstract]
+== Resumen
+Contacts-API es una REST API que gestiona listas de contactos.
+
+[TIP]
+====
+Disponible en el repositorio:
+
+* Contacts-API: https://github.com/untalsanders/contacts-api.git[https://github.com/untalsanders/contacts-api.git]
+====
+
+.Requerimientos funcionales de Negocio
+
+* Crear contacto
+* Editar contacto
+* Modificar presentaciones creadas
+* Gestión de usuarios
+
+.Requerimientos no funcionales (Opcionales)
+
+* Agregar `Dockerfile` para la creación de imagen docker
+  - Usar _Docker Compose_ para construir entornos de contenedores
+  - Usar volúmenes para almacenamiento persistente
+* Agregar soporte para _Testcontainers_ para automatizar pruebas en ambiente aislado
+
+:numbered:
+
+== Diagrama de Contexto
+
+La siguiente imagen es una representación con UML del contexto general de la aplicación. Está basado en los diagramas de C4Model.
+
+image::./Contacts_API___Context_Diagram_C4Model-Diagrama_de_Contexto_MS_Anexos.svg[]

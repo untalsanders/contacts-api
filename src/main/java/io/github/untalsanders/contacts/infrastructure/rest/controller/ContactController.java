@@ -1,9 +1,10 @@
 package io.github.untalsanders.contacts.infrastructure.rest.controller;
 
-import io.github.untalsanders.contacts.application.service.CreateContactService;
-import io.github.untalsanders.contacts.application.service.RetrieveContactService;
+import io.github.untalsanders.contacts.application.service.DeleteContactService;
+import io.github.untalsanders.contacts.application.usecase.CreateContactUseCase;
+import io.github.untalsanders.contacts.application.usecase.RetrieveContactUseCase;
+import io.github.untalsanders.contacts.application.usecase.UpdateContactUseCase;
 import io.github.untalsanders.contacts.domain.model.Contact;
-import io.github.untalsanders.contacts.application.service.ContactServicePort;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,19 +19,21 @@ import java.util.Optional;
 @RequestMapping("/contacts")
 public class ContactController {
 
-    private final ContactServicePort contactServicePort;
     private final CreateContactUseCase createContactUseCase;
     private final RetrieveContactUseCase retrieveContactUseCase;
+    private final UpdateContactUseCase updateContactUseCase;
+    private final DeleteContactService deleteContactService;
 
     @Autowired
     public ContactController(
-        ContactServicePort contactServicePort,
         CreateContactUseCase createContactUseCase,
-        RetrieveContactUseCase retrieveContactUseCase
-    ) {
-        this.contactServicePort = contactServicePort;
+        RetrieveContactUseCase retrieveContactUseCase,
+        UpdateContactUseCase updateContactUseCase,
+        DeleteContactService deleteContactService) {
         this.createContactUseCase = createContactUseCase;
         this.retrieveContactUseCase = retrieveContactUseCase;
+        this.updateContactUseCase = updateContactUseCase;
+        this.deleteContactService = deleteContactService;
     }
 
     @GetMapping
@@ -48,14 +51,14 @@ public class ContactController {
         return new ResponseEntity<>(createContactUseCase.createContact(contact), HttpStatus.CREATED);
     }
 
-    @PutMapping
-    public ResponseEntity<Contact> updateContact(@RequestBody Contact contact) {
-        return new ResponseEntity<>(contactServicePort.update(contact), HttpStatus.CREATED);
+    @PutMapping("/{id}")
+    public ResponseEntity<Optional<Contact>> updateContact(@PathVariable("id") Long id, @RequestBody Contact contact) {
+        return new ResponseEntity<>(updateContactUseCase.updateContact(id, contact), HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Map<String, Boolean>> deleteContactById(@PathVariable("id") Long id) {
-        contactServicePort.delete(id);
+        deleteContactService.deleteContact(id);
         Map<String, Boolean> response = new HashMap<>();
         response.put("deleted", Boolean.TRUE);
         return ResponseEntity.ok(response);

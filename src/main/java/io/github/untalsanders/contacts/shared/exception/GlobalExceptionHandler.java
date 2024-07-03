@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import java.util.NoSuchElementException;
 import java.util.Objects;
 
 @RestControllerAdvice
@@ -43,16 +44,16 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return Objects.nonNull(value) && value.length > 0 && value[0].contentEquals("true");
     }
 
-    @ExceptionHandler(Exception.class)
+    @ExceptionHandler(RuntimeException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ResponseEntity<Object> handleAllUncaughtException(Exception exception, WebRequest request) {
         LOG.error(ErrorMessage.UNKNOWN_ERROR.getMessage(), exception);
         return buildErrorResponse(exception, ErrorMessage.UNKNOWN_ERROR.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR, request);
     }
 
-    @ExceptionHandler(NoSuchElementFoundException.class)
+    @ExceptionHandler(NoSuchElementException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ResponseEntity<Object> handleNoSuchElementFoundException(NoSuchElementFoundException exception, WebRequest request) {
+    public ResponseEntity<Object> handleNoSuchElementFoundException(NoSuchElementException exception, WebRequest request) {
         LOG.error(ErrorMessage.FAILED_TO_FIND_REQUESTED_ELEMENT.getMessage(), exception);
         return buildErrorResponse(exception, request);
     }

@@ -1,0 +1,50 @@
+:encoding: utf-8
+:lang: es
+:toc:
+:toc-title: Tabla de contenidos
+:icons: font
+:imagesdir: ./images
+
+= Aplicación para la gestión de Contactos
+
+== Descripción del Problema
+
+Actualmente, utilizo la aplicación Google Contacts para gestionar mis listas de contactos. Sin embargo, mi principal preocupación es la privacidad de mis datos, ya que Google almacena y accede a mi información personal. Deseo una alternativa que me permita administrar mis contactos sin compartir mis datos con Google.
+
+== Contexto y Antecedentes
+
+Utilizo mi lista de contactos para gestionar relaciones profesionales y personales. Sin embargo, me preocupa que Google pueda acceder a esta información, lo que podría comprometer mi privacidad y la confidencialidad de mis contactos.
+
+== Reproducción del Problema
+
+1. Abro la aplicación Google Contacts en mi dispositivo.
+2. Ingreso mis credenciales de Google para acceder a mi lista de contactos.
+3. Agrego, edito o elimino contactos según sea necesario.
+4. Observo que mis datos están almacenados en los servidores de Google y quedan sujetos a su política de privacidad.
+
+== Datos de Entrada y Salida
+
+- *Datos de entrada*: nombres, números de teléfono, direcciones de correo electrónico y otra información de contacto.
+- *Datos de salida*: cambios en la lista de contactos reflejados en la aplicación Google Contacts.
+- *Errores o Mensajes de Error*: No se aplica en este caso.
+
+== Impacto y Prioridad
+
+El impacto de este problema radica en la preocupación por la privacidad y la seguridad de mis datos personales y de contacto. Dado que la privacidad es una prioridad para mí, considero este problema de alta prioridad y busco una solución alternativa lo antes posible.
+
+== Entorno de Trabajo
+
+- *Sistema operativo*: Android
+- *Versión de la aplicación Google Contacts*: última versión disponible en Google Play Store
+
+== Capturas de Pantalla o Grabaciones
+
+Prefiero no adjuntar capturas de pantalla que muestran mi lista de contactos en la aplicación Google Contacts.
+
+== Pasos de Mitigación Temporales
+
+Mientras desarrollo una aplicación como solución permanente, continuaré usando la aplicación Google Contacts, pero buscaré alternativas de código abierto o soluciones que no requieran compartir mis datos con terceros.
+
+== Revisión y Colaboración
+
+Invito a otros usuarios preocupados por la privacidad a revisar esta documentación y colaborar en el desarrollo o búsqueda de una solución alternativa.

@@ -60,3 +60,8 @@ test {
 jar {
     enabled = false
 }
+
+javadoc {
+    destinationDir = file("${buildDir}/docs/javadoc")
+    include 'io/github/untalsanders/contacts/domain/**'
+}

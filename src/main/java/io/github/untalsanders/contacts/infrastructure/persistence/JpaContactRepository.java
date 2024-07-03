@@ -1,5 +1,6 @@
 package io.github.untalsanders.contacts.infrastructure.persistence;
 
+import io.github.untalsanders.contacts.domain.exception.ContactAlreadyExistsException;
 import io.github.untalsanders.contacts.domain.model.Contact;
 import io.github.untalsanders.contacts.domain.repository.ContactRepository;
 import io.github.untalsanders.contacts.infrastructure.persistence.crud.ContactCrudRepository;
@@ -10,11 +11,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class JpaContactRepository implements ContactRepository {
 
-    private static final Logger log = LoggerFactory.getLogger(JpaContactRepository.class);
+    private static final Logger LOG = LoggerFactory.getLogger(JpaContactRepository.class);
     private final ContactCrudRepository contactCrudRepository;
     private final ContactMapper contactMapper;
 
@@ -24,10 +26,10 @@ public class JpaContactRepository implements ContactRepository {
     }
 
     @Override
-    public Contact findById(Long id) {
+    public Optional<Contact> findById(Long id) {
         Contact contactFound = contactCrudRepository.findById(id).map(contactMapper::entityToDomain).orElse(null);
-        log.info("Contact found: {}", contactFound);
-        return contactFound;
+        LOG.info("Contact found: {}", contactFound);
+        return Optional.ofNullable(contactFound);
     }
 
     @Override
@@ -38,30 +40,36 @@ public class JpaContactRepository implements ContactRepository {
 
     @Override
     public Contact save(Contact contact) {
-        ContactEntity contactEntity = contactMapper.domainToEntity(contact);
-        Contact contactSaved = contactMapper.entityToDomain(contactCrudRepository.save(contactEntity));
-        log.info("Contact created: {}", contactSaved);
-        return contactSaved;
+        ContactEntity contactSaved = contactCrudRepository.save(contactMapper.domainToEntity(contact));
+        LOG.info("Contact created: {}", contactSaved);
+        return contactMapper.entityToDomain(contactSaved);
     }
 
     @Override
-    public void update(Contact contact) {
+    public Contact update(Long id, Contact contact) {
+        Optional<Contact> contactFound = findById(id);
+        if (contactFound.isEmpty()) {
+            throw new ContactAlreadyExistsException("Contact already exists");
+        }
         ContactEntity contactEntity = contactMapper.domainToEntity(contact);
         contactEntity.setId(contact.getId());
-        contactEntity.setName(contact.getName());
+        contactEntity.setFirstname(contact.getFirstname());
+        contactEntity.setLastname(contact.getLastname());
         contactEntity.setPhone(contact.getPhone());
-        save(contactMapper.entityToDomain(contactEntity));
+        return save(contactMapper.entityToDomain(contactEntity));
     }
 
     @Override
     public void delete(Contact contact) {
-        log.info("Deleting contact: {}", contact.getId());
+        LOG.info("Deleting contact: {}", contact.getId());
     }
 
     @Override
     public void deleteById(Long id) {
-        Contact contact = findById(id);
-        log.info("Deleting contact by ID: {}", contact);
-        contactCrudRepository.deleteById(contact.getId());
+        Optional<Contact> contact = findById(id);
+        contact.ifPresent(value -> {
+            contactCrudRepository.deleteById(value.getId());
+            LOG.info("Deleted Contact with ID: {}", contact);
+        });
     }
 }

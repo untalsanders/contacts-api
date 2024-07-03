@@ -1,17 +1,19 @@
 package io.github.untalsanders.contacts.application.service;
 
-import io.github.untalsanders.contacts.domain.model.Contact;
 import io.github.untalsanders.contacts.application.usecase.CreateContactUseCase;
-import io.github.untalsanders.contacts.infrastructure.persistence.JpaContactRepository;
+import io.github.untalsanders.contacts.domain.model.Contact;
+import io.github.untalsanders.contacts.domain.repository.ContactRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class CreateContactService implements CreateContactUseCase {
 
-    private final JpaContactRepository repository;
+    private final ContactRepository repository;
 
-    public CreateContactService(JpaContactRepository jpaContactRepository) {
-        this.repository = jpaContactRepository;
+    @Autowired
+    public CreateContactService(ContactRepository contactRepository) {
+        this.repository = contactRepository;
     }
 
     @Override

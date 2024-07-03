@@ -11,155 +11,137 @@ info:
 
 tags:
   - name: Contacts
-    description: Everything about Hotels
-  - name: Search
-    description: Everything about Search
+    description: Everything about Contacts
 
 servers:
-  - url: http://localhost:8080/api
+  - url: http://localhost:8080/
     description: 'DEV: Please configure according to your local environment.'
-  - url: https://sgdev-contacts-api.onrender.com/api
-    description: 'STAGING: Testing Server.'
 
 paths:
-  /hotel:
+  /contacts:
     get:
       tags:
-        - Hotels
-      summary: Get all hotels
+        - Contacts
+      summary: Get all contacts
       responses:
         200:
-          description: A JSON array of hotels
+          description: A JSON array of contacts
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Hotel'
+                  $ref: '#/components/schemas/Contact'
         404:
           description: Endpoint no found
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/ErrorResponse'
         500:
           description: Unexpected error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/ErrorResponse'
     post:
       tags:
-        - Hotels
-      summary: Create a hotel
+        - Contacts
+      summary: Create a new contact
       responses:
-        200:
-          description: A new hotel have been created
+        201:
+          description: Created
+        400:
+          description: Bad request. Contact ID must be an integer and larger than 0.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Hotel'
-        404:
-          description: No hotel found for the provided `hotelId`
+                $ref: '#/components/schemas/ErrorResponse'
+        5XX:
+          description: Unexpected error.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
-        500:
-          description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-  /hotel/{hotelId}:
+                $ref: '#/components/schemas/ErrorResponse'
+  /contacts/{id}:
     parameters:
-      - name: hotelId
-        description: The unique identifier of the hotel
+      - name: id
+        description: The unique identifier of the contact
         in: path
         required: true
         schema:
-          $ref: '#/components/schemas/HotelId'
+          $ref: '#/components/schemas/ContactId'
     get:
       tags:
-        - Hotels
-      summary: Read a hotel
+        - Contacts
+      summary: Get a contact
       responses:
         200:
-          description: The hotel corresponding to the provided `hotelId`
+          description: A new contact have been created
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Hotel'
+                $ref: '#/components/schemas/Contact'
         404:
-          description: No hotel found for the provided `hotelId`
+          description: No contact found for the provided `contactId`
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/ErrorResponse'
         500:
           description: Unexpected error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
-  /search:
-    post:
-      tags:
-        - Search
-      summary: Gets a unique identifier attributed to the search for a hotel
-      responses:
-        200:
-          description: Identifier attributed to the search for a hotel
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/SearchId'
-        404:
-          description: No identifier found for the provided `searchId`
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
+                $ref: '#/components/schemas/ErrorResponse'
+
 components:
   schemas:
-    HotelId:
-      description: The unique identifier of a hotel
-      type: string
-    Hotel:
-      type: object
-      properties:
-        id:
-          $ref: '#/components/schemas/HotelId'
-        name:
-          type: string
-      required:
-        - id
-        - name
-    Booking:
+    ContactId:
+      description: The unique identifier of a contact
+    Contact:
       type: object
       properties:
         id:
           type: integer
-    SearchId:
-      description: The unique identifier attributed to the search for a hotel
-      type: string
-    SearchRequest:
-      type: object
-      properties:
-        hotelId:
-          $ref: '#/components/schemas/HotelId'
-        checkIn:
+        firstname:
           type: string
-        checkOut:
+        lastname:
           type: string
-        ages:
-          type: array
-          example: [30, 29, 1, 3]
-    Error:
-      type: object
+        phone:
+          type: string
       required:
-        - message
+        - id
+        - firstname
+        - phone
+    ApiResponse:
+      type: object
       properties:
-        message:
-          description: A human-readable error message
+
+    Info:
+      type: object
+      properties:
+        count:
+          type: integer
+          description: The length of the response
+        pages:
+          type: integer
+          description: Link to the next page (if it exists)
+        next:
           type: string
+          description: Link to the next page of resources
+        prev:
+          type: string
+          description: Link to the previous page (if it exists)
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: string
+          description: An error code of business
+        message:
+          type: string
+          description: A human-readable error message
+      required:
+        - code
+        - message

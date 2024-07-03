@@ -7,7 +7,6 @@ import io.github.untalsanders.contacts.domain.repository.ContactRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -20,11 +19,11 @@ public class RetrieveContactService implements RetrieveContactUseCase {
 
     @Override
     public Optional<Contact> getContact(Long id) {
-        Contact contact = contactRepository.findById(id);
-        if (Objects.isNull(contact)) {
+        Optional<Contact> contact = contactRepository.findById(id);
+        if (contact.isEmpty()) {
             throw new ContactNotFoundException(String.format("Contact with id %s not found", id));
         }
-        return Optional.of(contact);
+        return contact;
     }
 
     @Override

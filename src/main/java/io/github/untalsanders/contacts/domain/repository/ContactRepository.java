@@ -3,9 +3,10 @@ package io.github.untalsanders.contacts.domain.repository;
 import io.github.untalsanders.contacts.domain.model.Contact;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
- * Repository class for <code>Contact</code> domain objets All method names are compliant with Spring Data naming
+ * Repository class for <code>Contact</code> domain objets. All method names are compliant with Spring Data naming
  * conventions so this interface can easily be extended for Spring Data see here: <a href="http://static.springsource.org/spring-data/jpa/docs/current/reference/html/jpa.repositories.html#jpa.query-methods.query-creation">http://static.springsource.org/spring-data/jpa/docs/current/reference/html/jpa.repositories.html#jpa.query-methods.query-creation</a>
  *
  * @author Sanders Gutiérrez
@@ -24,7 +25,7 @@ public interface ContactRepository {
      * @param id the id to search for
      * @return the <code>Contact</code> if found
      */
-     Contact findById(Long id);
+    Optional<Contact> findById(Long id);
 
     /**
      * Save a <code>Contact</code> to the data store.
@@ -37,9 +38,11 @@ public interface ContactRepository {
     /**
      * Update a <code>Contact</code> to the data store.
      *
+     * @param id      the id for search and update
      * @param contact the <code>Contact</code> to update
+     * @return the <code>Contact</code> updated
      */
-    void update(Contact contact);
+    Contact update(Long id, Contact contact);
 
     /**
      * Delete a <code>Contact</code> from the data store.
