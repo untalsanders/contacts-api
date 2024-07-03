@@ -19,29 +19,33 @@ import java.util.Optional;
 public class ContactController {
 
     private final ContactServicePort contactServicePort;
-    private final CreateContactService createContactService;
-    private final RetrieveContactService retrieveContactService;
+    private final CreateContactUseCase createContactUseCase;
+    private final RetrieveContactUseCase retrieveContactUseCase;
 
     @Autowired
-    public ContactController(ContactServicePort contactServicePort, CreateContactService createContactService, RetrieveContactService retrieveContactService) {
+    public ContactController(
+        ContactServicePort contactServicePort,
+        CreateContactUseCase createContactUseCase,
+        RetrieveContactUseCase retrieveContactUseCase
+    ) {
         this.contactServicePort = contactServicePort;
-        this.createContactService = createContactService;
-        this.retrieveContactService = retrieveContactService;
+        this.createContactUseCase = createContactUseCase;
+        this.retrieveContactUseCase = retrieveContactUseCase;
     }
 
     @GetMapping
     public ResponseEntity<List<Contact>> getAllContacts() {
-        return new ResponseEntity<>(retrieveContactService.getContacts(), HttpStatus.OK);
+        return new ResponseEntity<>(retrieveContactUseCase.getContacts(), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Optional<Contact>> getContactById(@PathVariable("id") Long id) {
-        return new ResponseEntity<>(retrieveContactService.getContact(id), HttpStatus.OK);
+        return new ResponseEntity<>(retrieveContactUseCase.getContact(id), HttpStatus.OK);
     }
 
     @PostMapping
     public ResponseEntity<Contact> createContact(@RequestBody Contact contact) {
-        return new ResponseEntity<>(createContactService.createContact(contact), HttpStatus.CREATED);
+        return new ResponseEntity<>(createContactUseCase.createContact(contact), HttpStatus.CREATED);
     }
 
     @PutMapping
