@@ -1,5 +1,6 @@
 package io.github.untalsanders.contacts.domain.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,6 +13,7 @@ import lombok.Setter;
 @Setter
 @Getter
 @NoArgsConstructor
+@AllArgsConstructor
 public class Contact {
     private Long id;
     private String firstname;

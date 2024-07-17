@@ -44,7 +44,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return Objects.nonNull(value) && value.length > 0 && value[0].contentEquals("true");
     }
 
-    @ExceptionHandler(RuntimeException.class)
+    @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ResponseEntity<Object> handleAllUncaughtException(Exception exception, WebRequest request) {
         LOG.error(ErrorMessage.UNKNOWN_ERROR.getMessage(), exception);
