@@ -3,7 +3,7 @@ spring:
     driver-class-name: org.h2.Driver
     username: sa
     password:
-    url: jdbc:h2:file:./src/main/resources/data/db-test-contacts-api;AUTO_SERVER=true
+    url: jdbc:h2:mem:db-contacts-api
   h2:
     console:
       enabled: true
@@ -14,3 +14,5 @@ spring:
     open-in-view: false
     hibernate:
       ddl-auto: create-drop
+contacts:
+  trace: true

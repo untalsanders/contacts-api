@@ -29,7 +29,8 @@ public class ContactController {
         CreateContactUseCase createContactUseCase,
         RetrieveContactUseCase retrieveContactUseCase,
         UpdateContactUseCase updateContactUseCase,
-        DeleteContactService deleteContactService) {
+        DeleteContactService deleteContactService
+    ) {
         this.createContactUseCase = createContactUseCase;
         this.retrieveContactUseCase = retrieveContactUseCase;
         this.updateContactUseCase = updateContactUseCase;

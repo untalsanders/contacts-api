@@ -86,4 +86,4 @@ The next image is a representation with UML of the general context of the applic
 
 ## :unlock: License
 
-This project is open-sourced software licensed under the [MIT licence](LICENCE).
+This project is open-sourced software licensed under the [AGPL-3.0 licence](LICENSE).

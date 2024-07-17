@@ -16,23 +16,28 @@ repositories {
 }
 
 ext {
-    junitJupiterVersion = '5.10.2'
     assertJVersion = '3.25.1'
+    commonsLang3Version = '3.14.0'
+    hibernateValidatorVersion = '8.0.0.Final'
+    h2Version = '2.2.224'
+    junitJupiterVersion = '5.10.2'
     lombokVersion = '1.18.34'
     mapStructVersion = '1.5.5.Final'
+    postgresqlVersion = '42.7.3'
+    springDocOpenApiStarterWebMvcVersionUI = '2.5.0'
 }
 
 dependencies {
     // Prod
-    implementation 'org.apache.commons:commons-lang3:'
+    implementation "org.apache.commons:commons-lang3:${commonsLang3Version}"
     implementation "org.mapstruct:mapstruct:${mapStructVersion}"
-    implementation 'org.hibernate.validator:hibernate-validator:8.0.0.Final'
-    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.5.0'
+    implementation "org.hibernate.validator:hibernate-validator:${hibernateValidatorVersion}"
+    implementation "org.springdoc:springdoc-openapi-starter-webmvc-ui:${springDocOpenApiStarterWebMvcVersionUI}"
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
-    runtimeOnly 'com.h2database:h2'
-    runtimeOnly 'org.postgresql:postgresql'
+    runtimeOnly "com.h2database:h2:${h2Version}"
+    runtimeOnly "org.postgresql:postgresql:${postgresqlVersion}"
 
     compileOnly "org.projectlombok:lombok:${lombokVersion}"
 

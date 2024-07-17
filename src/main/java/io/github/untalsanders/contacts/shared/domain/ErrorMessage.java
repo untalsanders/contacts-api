@@ -1,5 +1,8 @@
 package io.github.untalsanders.contacts.shared.domain;
 
+import lombok.Getter;
+
+@Getter
 public enum ErrorMessage {
     UNKNOWN_ERROR("Unknown error occurred"),
     FAILED_TO_FIND_REQUESTED_ELEMENT("Failed to find the requested element"),
@@ -11,7 +14,4 @@ public enum ErrorMessage {
         this.message = message;
     }
 
-    public String getMessage() {
-        return message;
-    }
 }
