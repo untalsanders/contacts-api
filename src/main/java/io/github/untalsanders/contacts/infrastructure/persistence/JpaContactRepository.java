@@ -1,6 +1,5 @@
 package io.github.untalsanders.contacts.infrastructure.persistence;
 
-import io.github.untalsanders.contacts.domain.exception.ContactAlreadyExistsException;
 import io.github.untalsanders.contacts.domain.model.Contact;
 import io.github.untalsanders.contacts.domain.repository.ContactRepository;
 import io.github.untalsanders.contacts.infrastructure.persistence.crud.ContactCrudRepository;
@@ -47,10 +46,6 @@ public class JpaContactRepository implements ContactRepository {
 
     @Override
     public Contact update(Long id, Contact contact) {
-        Optional<Contact> contactFound = findById(id);
-        if (contactFound.isEmpty()) {
-            throw new ContactAlreadyExistsException("Contact already exists");
-        }
         ContactEntity contactEntity = contactMapper.domainToEntity(contact);
         contactEntity.setId(contact.getId());
         contactEntity.setFirstname(contact.getFirstname());

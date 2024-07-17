@@ -1,5 +1,6 @@
 package io.github.untalsanders.contacts.domain.repository;
 
+import io.github.untalsanders.contacts.domain.exception.ContactNotFoundException;
 import io.github.untalsanders.contacts.domain.model.Contact;
 
 import java.util.List;
@@ -41,8 +42,9 @@ public interface ContactRepository {
      * @param id      the id for search and update
      * @param contact the <code>Contact</code> to update
      * @return the <code>Contact</code> updated
+     * @throws ContactNotFoundException in case the <code>Contact</code> with given id not exists.
      */
-    Contact update(Long id, Contact contact);
+    Contact update(Long id, Contact contact) throws ContactNotFoundException;
 
     /**
      * Delete a <code>Contact</code> from the data store.
