@@ -34,6 +34,7 @@ public class JpaContactRepository implements ContactRepository {
     @Override
     public List<Contact> findAll() {
         List<ContactEntity> contactEntityList = (List<ContactEntity>) contactCrudRepository.findAll();
+        LOG.info("Total contacts found: {}", contactEntityList.size());
         return contactMapper.toContacts(contactEntityList);
     }
 
