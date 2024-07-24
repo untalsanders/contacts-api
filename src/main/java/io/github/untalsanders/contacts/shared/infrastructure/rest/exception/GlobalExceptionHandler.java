@@ -1,4 +1,4 @@
-package io.github.untalsanders.contacts.shared.exception;
+package io.github.untalsanders.contacts.shared.infrastructure.rest.exception;
 
 import io.github.untalsanders.contacts.shared.domain.ErrorMessage;
 import io.github.untalsanders.contacts.shared.domain.ErrorResponse;
@@ -12,13 +12,12 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
-import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import java.util.NoSuchElementException;
 import java.util.Objects;
 
 @RestControllerAdvice
-public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
+public class GlobalExceptionHandler {
 
     private static final Logger LOG = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
@@ -26,7 +25,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     private boolean printStackTrace;
 
     private ResponseEntity<Object> buildErrorResponse(Exception exception, String message, HttpStatus status, WebRequest request) {
-        ErrorResponse errorResponse = new ErrorResponse(status.value(), message);
+        ErrorResponse errorResponse = new ErrorResponse(String.valueOf(status.value()), message);
         if (printStackTrace && isTraceOn(request)) {
             errorResponse.setStackTrace(ExceptionUtils.getStackTrace(exception));
         }
@@ -47,8 +46,8 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ResponseEntity<Object> handleAllUncaughtException(Exception exception, WebRequest request) {
-        LOG.error(ErrorMessage.UNKNOWN_ERROR.getMessage(), exception);
-        return buildErrorResponse(exception, ErrorMessage.UNKNOWN_ERROR.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR, request);
+        LOG.error(ErrorMessage.UNKNOWN.getMessage(), exception);
+        return buildErrorResponse(exception, ErrorMessage.UNKNOWN.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR, request);
     }
 
     @ExceptionHandler(NoSuchElementException.class)

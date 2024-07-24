@@ -1,17 +1,16 @@
 package io.github.untalsanders.contacts.shared.domain;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 public class ErrorResponse {
-    private final int status;
+    private final String code;
     private final String message;
     @Setter
     private String stackTrace;
 
-    public ErrorResponse(int status, String message) {
-        this.status = status;
+    public ErrorResponse(String code, String message) {
+        this.code = code;
         this.message = message;
     }
 }

@@ -11,11 +11,8 @@ class ContactMapperTest {
     @Test
     @DisplayName("Should map to contact entity")
     void should_map_to_contact_entity() {
-        // Given
         Contact contact = new Contact(1L, "Dayhana", "1133052795");
-        // When
         ContactEntity contactEntity = ContactMapper.INSTANCE.domainToEntity(contact);
-        // Then
         assertThat(contactEntity).isNotNull();
         assertThat(contactEntity.getFirstname()).isEqualTo(contact.getFirstname());
         assertThat(contactEntity.getLastname()).isEqualTo(contact.getLastname());
