@@ -16,7 +16,7 @@ public class ContactEntity {
     @Column(name = "id")
     private Long id;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private String firstname;
 
     private String lastname;
