@@ -1,8 +1,8 @@
 package io.github.untalsanders.contacts.application.service;
 
-import io.github.untalsanders.contacts.application.usecase.CreateContactUseCase;
 import io.github.untalsanders.contacts.domain.model.Contact;
 import io.github.untalsanders.contacts.domain.repository.ContactRepository;
+import io.github.untalsanders.contacts.domain.usecase.CreateContactUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

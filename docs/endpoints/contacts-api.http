@@ -1,9 +1,13 @@
 ﻿# Contacts API
 
+@user=sanders
+@password=12345
+
 ###
 # group: Contacts
 # @name List Contacts
 GET {{BASE_URL}}/contacts
+Authorization: Basic {{user}} {{password}}
 
 > {%
     client.test("GET all contacts returns 200", function () {
@@ -18,10 +22,9 @@ POST {{BASE_URL}}/contacts
 Content-Type: application/json
 
 {
-    "id": 3,
-    "firstname": "Jackelin",
-    "lastname": "Cadavid",
-    "phone": "1158643071"
+    "firstName": "Jackelin",
+    "lastName": "Cadavid",
+    "phoneNumber": "1158643071"
 }
 
 > {%
@@ -31,10 +34,10 @@ Content-Type: application/json
 %}
 
 ###
-@id=3
+@id=10
 # group: Contacts
 # @name Get Contact
-GET {{BASE_URL}}/contacts/{{id}}?trace=true
+GET {{BASE_URL}}/contactss/{{id}}?trace=true
 
 > {%
     client.test("Get Contact returns 200", function () {

@@ -1,6 +1,6 @@
 package io.github.untalsanders.contacts.application.service;
 
-import io.github.untalsanders.contacts.application.usecase.DeleteContactUseCase;
+import io.github.untalsanders.contacts.domain.usecase.DeleteContactUseCase;
 import io.github.untalsanders.contacts.domain.repository.ContactRepository;
 import org.springframework.stereotype.Service;
 

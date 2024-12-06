@@ -12,8 +12,7 @@ import lombok.Setter;
 @Table(name = "contacts")
 public class ContactEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @GeneratedValue
     private Long id;
 
     @Column(nullable = false)
@@ -24,8 +23,7 @@ public class ContactEntity {
     @Column(nullable = false, unique = true)
     private String phone;
 
-    public ContactEntity(Long id, String firstname, String phone) {
-        this.id = id;
+    public ContactEntity(String firstname, String phone) {
         this.firstname = firstname;
         this.phone = phone;
     }

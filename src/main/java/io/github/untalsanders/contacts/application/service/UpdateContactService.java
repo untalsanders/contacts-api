@@ -1,6 +1,6 @@
 package io.github.untalsanders.contacts.application.service;
 
-import io.github.untalsanders.contacts.application.usecase.UpdateContactUseCase;
+import io.github.untalsanders.contacts.domain.usecase.UpdateContactUseCase;
 import io.github.untalsanders.contacts.domain.exception.ContactNotFoundException;
 import io.github.untalsanders.contacts.domain.model.Contact;
 import io.github.untalsanders.contacts.domain.repository.ContactRepository;
@@ -30,9 +30,14 @@ public class UpdateContactService implements UpdateContactUseCase {
 
         Optional<Contact> contactToUpdate = contactRepository.findById(id);
         if (contactToUpdate.isEmpty()) {
-            throw new ContactNotFoundException(String.format("Contact with id %s not found", id));
+            throw new ContactNotFoundException(String.format("Contact not found with id %s", id));
         }
 
-        return Optional.of(contactRepository.update(id, contact));
+        Contact existingContact = contactToUpdate.get();
+        existingContact.setFirstname(contact.getFirstname());
+        existingContact.setLastname(contact.getLastname());
+        existingContact.setPhone(contact.getPhone());
+
+        return Optional.of(contactRepository.update(id, existingContact));
     }
 }

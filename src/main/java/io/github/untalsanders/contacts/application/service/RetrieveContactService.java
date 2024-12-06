@@ -1,9 +1,10 @@
 package io.github.untalsanders.contacts.application.service;
 
-import io.github.untalsanders.contacts.application.usecase.RetrieveContactUseCase;
+import io.github.untalsanders.contacts.domain.usecase.RetrieveContactUseCase;
 import io.github.untalsanders.contacts.domain.exception.ContactNotFoundException;
 import io.github.untalsanders.contacts.domain.model.Contact;
 import io.github.untalsanders.contacts.domain.repository.ContactRepository;
+import io.github.untalsanders.contacts.shared.infrastructure.rest.exception.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,11 +18,10 @@ public class RetrieveContactService implements RetrieveContactUseCase {
         this.contactRepository = contactRepository;
     }
 
-    @Override
-    public Optional<Contact> getContact(Long id) {
+    public Optional<Contact> getContactById(Long id) {
         Optional<Contact> contact = contactRepository.findById(id);
         if (contact.isEmpty()) {
-            throw new ContactNotFoundException(String.format("Contact with id %s not found", id));
+            throw new ResourceNotFoundException(String.format("Contact with id %s not found", id));
         }
         return contact;
     }

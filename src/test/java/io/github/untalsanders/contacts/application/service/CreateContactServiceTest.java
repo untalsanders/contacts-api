@@ -10,6 +10,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -25,7 +26,7 @@ class CreateContactServiceTest {
     @DisplayName("Should create a contact")
     void shouldCreateContact() {
         Contact contactToSave = new Contact(1L, "Sanders", "Gutiérrez", "1160219207");
-        when(contactRepository.save(contactToSave)).thenReturn(new Contact(1L, "Sanders", "Gutiérrez", "1160219207"));
+        when(contactRepository.save(any())).thenReturn(contactToSave);
         final Contact contactSaved = createContactService.createContact(contactToSave);
         assertEquals(contactToSave.getId(), contactSaved.getId());
         assertEquals(contactToSave.getFirstname(), contactSaved.getFirstname());

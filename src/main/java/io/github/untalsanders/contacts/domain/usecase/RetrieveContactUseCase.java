@@ -1,4 +1,4 @@
-package io.github.untalsanders.contacts.application.usecase;
+package io.github.untalsanders.contacts.domain.usecase;
 
 import io.github.untalsanders.contacts.domain.exception.ContactNotFoundException;
 import io.github.untalsanders.contacts.domain.model.Contact;
@@ -13,7 +13,7 @@ public interface RetrieveContactUseCase {
      * @param id the id to search for
      * @return the <code>Contact</code> if found
      */
-    Optional<Contact> getContact(Long id) throws ContactNotFoundException;
+    Optional<Contact> getContactById(Long id) throws ContactNotFoundException;
 
     /**
      * Retrieve all <code>Contact</code>s.
