@@ -20,25 +20,13 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/contacts")
 @Slf4j
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class ContactController {
 
     private final CreateContactService createContactService;
     private final RetrieveContactUseCase retrieveContactUseCase;
     private final UpdateContactUseCase updateContactUseCase;
     private final DeleteContactService deleteContactService;
-
-    @Autowired
-    public ContactController(
-        CreateContactService createContactService,
-        RetrieveContactUseCase retrieveContactUseCase,
-        UpdateContactUseCase updateContactUseCase,
-        DeleteContactService deleteContactService
-    ) {
-        this.createContactService = createContactService;
-        this.retrieveContactUseCase = retrieveContactUseCase;
-        this.updateContactUseCase = updateContactUseCase;
-        this.deleteContactService = deleteContactService;
-    }
 
     @GetMapping
     public ResponseEntity<List<Contact>> retrieveAllContacts() {
