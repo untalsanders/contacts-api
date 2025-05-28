@@ -88,6 +88,23 @@ public class GlobalExceptionHandler {
             ));
     }
 
+    @ExceptionHandler(SuchElementAlreadyExistsException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ResponseEntity<ApiResponse<Object>> handleSuchElementAlreadyExistsException(
+        SuchElementAlreadyExistsException exception,
+        HttpServletRequest request
+    ) {
+        log.error("===== ERROR ===== : {}", exception.getMessage());
+        return ResponseEntity
+            .status(HttpStatus.BAD_REQUEST)
+            .body(ResponseUtil.error(
+                Collections.singletonList(exception.getMessage()),
+                "BAD Request - Resource already exists",
+                400,
+                request.getRequestURI()
+            ));
+    }
+
     @ExceptionHandler(ResponseNotFoundException.class)
     public ApiResponse<Object> handleResponseNotFoundException(
         ResponseNotFoundException exception,
@@ -120,16 +137,6 @@ public class GlobalExceptionHandler {
         WebRequest request
     ) {
         LOG.error(ErrorMessage.FAILED_TO_FIND_REQUESTED_ELEMENT.getMessage(), exception);
-        return buildErrorResponse(exception, request);
-    }
-
-    @ExceptionHandler(SuchElementAlreadyExistsException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ResponseEntity<Object> handleSuchElementAlreadyExistsException(
-        SuchElementAlreadyExistsException exception,
-        WebRequest request
-    ) {
-        LOG.error(ErrorMessage.ITEM_ALREADY_EXISTS.getMessage(), exception);
         return buildErrorResponse(exception, request);
     }
 }

@@ -20,4 +20,16 @@ public class CreateContactService implements CreateContactUseCase {
     public Contact createContact(Contact contact) {
         return repository.save(contact);
     }
+
+    @Override
+    public Contact createContact(Long id, String firstName, String phoneNumber) {
+        Contact contact = new Contact(id, firstName, phoneNumber);
+        return repository.save(contact);
+    }
+
+    @Override
+    public Contact createContact(Long id, String firstName, String lastName, String phoneNumber) {
+        Contact contact = new Contact(id, firstName, lastName, phoneNumber);
+        return repository.save(contact);
+    }
 }

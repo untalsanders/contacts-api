@@ -24,13 +24,13 @@ class CreateContactServiceTest {
 
     @Test
     @DisplayName("Should create a contact")
-    void shouldCreateContact() {
-        Contact contactToSave = new Contact(1L, "Sanders", "Gutiérrez", "1160219207");
-        when(contactRepository.save(any())).thenReturn(contactToSave);
-        final Contact contactSaved = createContactService.createContact(contactToSave);
-        assertEquals(contactToSave.getId(), contactSaved.getId());
-        assertEquals(contactToSave.getFirstname(), contactSaved.getFirstname());
-        assertEquals(contactToSave.getLastname(), contactSaved.getLastname());
-        assertEquals(contactToSave.getPhone(), contactSaved.getPhone());
+    void should_create_contact() {
+        Contact contact = new Contact(1L, "Sanders", "Gutiérrez", "1160219207");
+        when(contactRepository.save(any())).thenReturn(contact);
+        final Contact contactSaved = createContactService.createContact(contact);
+        assertEquals(contact.getId(), contactSaved.getId());
+        assertEquals(contact.getFirstname(), contactSaved.getFirstname());
+        assertEquals(contact.getLastname(), contactSaved.getLastname());
+        assertEquals(contact.getPhone(), contactSaved.getPhone());
     }
 }

@@ -1,9 +1,10 @@
-package io.github.untalsanders.contacts.infrastructure.rest.dto;
+package io.github.untalsanders.contacts.application.dto;
 
 import lombok.Data;
 
 @Data
 public class CreateContactDto {
+    private Long id;
     private String firstName;
     private String lastName;
     private String phoneNumber;

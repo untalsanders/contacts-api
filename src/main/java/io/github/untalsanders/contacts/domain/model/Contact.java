@@ -15,12 +15,14 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Contact {
+
     private Long id;
     private String firstname;
     private String lastname;
     private String phone;
 
-    public Contact(String firstname, String phone) {
+    public Contact(Long id, String firstname, String phone) {
+        this.id = id;
         this.firstname = firstname;
         this.phone = phone;
     }

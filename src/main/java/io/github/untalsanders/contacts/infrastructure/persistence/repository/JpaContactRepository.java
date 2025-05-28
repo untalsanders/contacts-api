@@ -5,6 +5,7 @@ import io.github.untalsanders.contacts.domain.repository.ContactRepository;
 import io.github.untalsanders.contacts.infrastructure.persistence.entity.ContactEntity;
 import io.github.untalsanders.contacts.infrastructure.persistence.mapper.ContactMapper;
 import io.github.untalsanders.contacts.infrastructure.persistence.repository.crud.ContactListCrudRepository;
+import io.github.untalsanders.contacts.shared.infrastructure.rest.exception.SuchElementAlreadyExistsException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
@@ -47,18 +48,20 @@ public class JpaContactRepository implements ContactRepository {
 
     @Override
     public Contact save(Contact contact) {
-        ContactEntity contactSaved = contactListCrudRepository.save(contactMapper.domainToEntity(contact));
-        log.info("Contact created: {}", contactSaved);
-        return contactMapper.entityToDomain(contactSaved);
+//        Optional<Contact> contactToSave = findById(contact.getId());
+
+//        if (contactToSave.isPresent()) {
+//            throw new SuchElementAlreadyExistsException("Contact with id " + contact.getId() + " already exists");
+//        }
+
+        ContactEntity contactEntitySaved = contactListCrudRepository.save(contactMapper.domainToEntity(contact));
+        log.info("Contact created: {}", contactEntitySaved);
+        return contactMapper.entityToDomain(contactEntitySaved);
     }
 
     @Override
     public Contact update(Long id, Contact contact) {
         ContactEntity contactEntity = contactMapper.domainToEntity(contact);
-        contactEntity.setId(contact.getId());
-        contactEntity.setFirstname(contact.getFirstname());
-        contactEntity.setLastname(contact.getLastname());
-        contactEntity.setPhone(contact.getPhone());
         Contact contactUpdated = save(contactMapper.entityToDomain(contactEntity));
         log.info("Contact updated: {}", contactUpdated);
         return contactUpdated;

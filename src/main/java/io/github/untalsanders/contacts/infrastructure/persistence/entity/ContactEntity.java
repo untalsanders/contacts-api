@@ -12,7 +12,7 @@ import lombok.Setter;
 @Table(name = "contacts")
 public class ContactEntity {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @Column(nullable = false)

@@ -5,7 +5,8 @@ import io.github.untalsanders.contacts.application.service.DeleteContactService;
 import io.github.untalsanders.contacts.domain.usecase.RetrieveContactUseCase;
 import io.github.untalsanders.contacts.domain.usecase.UpdateContactUseCase;
 import io.github.untalsanders.contacts.domain.model.Contact;
-import io.github.untalsanders.contacts.infrastructure.rest.dto.CreateContactDto;
+import io.github.untalsanders.contacts.application.dto.CreateContactDto;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -38,9 +39,21 @@ public class ContactController {
         return new ResponseEntity<>(retrieveContactUseCase.getContactById(id), HttpStatus.OK);
     }
 
+    @PostMapping("/new")
+    public ResponseEntity<Contact> createContact2(@RequestBody CreateContactDto dto) {
+        Contact contact = new Contact();
+        contact.setId(dto.getId());
+        contact.setFirstname(dto.getFirstName());
+        contact.setLastname(dto.getLastName());
+        contact.setPhone(dto.getPhoneNumber());
+        log.info("Creating contact: {}", contact);
+        return new ResponseEntity<>(createContactService.createContact(contact), HttpStatus.CREATED);
+    }
+
     @PostMapping
     public ResponseEntity<Contact> createContact(@RequestBody CreateContactDto dto) {
         Contact contact = new Contact();
+        contact.setId(dto.getId());
         contact.setFirstname(dto.getFirstName());
         contact.setLastname(dto.getLastName());
         contact.setPhone(dto.getPhoneNumber());

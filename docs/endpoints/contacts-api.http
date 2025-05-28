@@ -18,10 +18,11 @@ Authorization: Basic {{user}} {{password}}
 ###
 # group: Contacts
 # @name Save Contact
-POST {{BASE_URL}}/contacts
+POST {{BASE_URL}}/contacts?trace=true
 Content-Type: application/json
 
 {
+    "id": 11,
     "firstName": "Jackelin",
     "lastName": "Cadavid",
     "phoneNumber": "1158643071"
@@ -34,10 +35,10 @@ Content-Type: application/json
 %}
 
 ###
-@id=10
+@id=4
 # group: Contacts
 # @name Get Contact
-GET {{BASE_URL}}/contactss/{{id}}?trace=true
+GET {{BASE_URL}}/contacts/{{id}}?trace=true
 
 > {%
     client.test("Get Contact returns 200", function () {
@@ -54,7 +55,7 @@ Content-Type: application/json
 {
     "id": {{id}},
     "firstname": "Jackelin",
-    "phone": "1158643072"
+    "phone": "0541158643072"
 }
 
 > {%
