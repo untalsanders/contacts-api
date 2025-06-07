@@ -1,4 +1,4 @@
-package com.untalsanders.contacts.rest.exception;
+package com.untalsanders.contacts.rest.advice;
 
 import com.untalsanders.contacts.shared.domain.ErrorMessage;
 import com.untalsanders.contacts.shared.domain.ErrorResponse;
