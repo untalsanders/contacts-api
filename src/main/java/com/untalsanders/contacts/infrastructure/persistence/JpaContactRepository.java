@@ -2,18 +2,25 @@ package com.untalsanders.contacts.infrastructure.persistence;
 
 import com.untalsanders.contacts.domain.model.Contact;
 import com.untalsanders.contacts.domain.repository.ContactRepository;
+import com.untalsanders.contacts.infrastructure.mapper.ContactMapper;
 import com.untalsanders.contacts.infrastructure.persistence.crud.ContactCrudRepository;
 import com.untalsanders.contacts.infrastructure.persistence.entity.ContactEntity;
-import com.untalsanders.contacts.infrastructure.mapper.ContactMapper;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.Query;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
 @Repository
 public class JpaContactRepository implements ContactRepository {
+
+    @PersistenceContext
+    private EntityManager em;
 
     private static final Logger LOG = LoggerFactory.getLogger(JpaContactRepository.class);
     private final ContactCrudRepository contactCrudRepository;
@@ -31,11 +38,13 @@ public class JpaContactRepository implements ContactRepository {
         return Optional.ofNullable(contactFound);
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public List<Contact> findAll() {
-        List<ContactEntity> contactEntityList = (List<ContactEntity>) contactCrudRepository.findAll();
-        LOG.info("Total contacts found: {}", contactEntityList.size());
-        return contactMapper.toContacts(contactEntityList);
+        Query query = this.em.createQuery("SELECT contact FROM ContactEntity contact");
+        Collection<ContactEntity> contactEntityCollection = query.getResultList();
+        LOG.info("Total contacts found: {}", contactEntityCollection.size());
+        return contactMapper.toContacts(contactEntityCollection.stream().toList());
     }
 
     @Override
