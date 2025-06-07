@@ -1,4 +1,4 @@
-package com.untalsanders.contacts.infrastructure.persistence.mapper;
+package com.untalsanders.contacts.infrastructure.mapper;
 
 import com.untalsanders.contacts.domain.model.Contact;
 import com.untalsanders.contacts.infrastructure.persistence.entity.ContactEntity;

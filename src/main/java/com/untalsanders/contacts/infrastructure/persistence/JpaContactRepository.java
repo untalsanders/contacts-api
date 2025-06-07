@@ -4,7 +4,7 @@ import com.untalsanders.contacts.domain.model.Contact;
 import com.untalsanders.contacts.domain.repository.ContactRepository;
 import com.untalsanders.contacts.infrastructure.persistence.crud.ContactCrudRepository;
 import com.untalsanders.contacts.infrastructure.persistence.entity.ContactEntity;
-import com.untalsanders.contacts.infrastructure.persistence.mapper.ContactMapper;
+import com.untalsanders.contacts.infrastructure.mapper.ContactMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
