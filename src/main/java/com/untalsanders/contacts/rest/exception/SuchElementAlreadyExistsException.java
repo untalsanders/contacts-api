@@ -1,4 +1,4 @@
-package com.untalsanders.contacts.shared.exception;
+package com.untalsanders.contacts.rest.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
