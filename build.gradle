@@ -8,12 +8,12 @@ plugins {
 
 apply plugin: 'java'
 
-group = 'io.github.untalsanders.contacts.api'
+group = 'com.untalsanders.contacts.api'
 version = '0.0.1-SNAPSHOT'
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_23
-    targetCompatibility = JavaVersion.VERSION_23
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_21
 }
 
 repositories {
@@ -23,6 +23,7 @@ repositories {
 ext {
     assertJVersion = '3.25.1'
     hibernateValidatorVersion = '8.0.0.Final'
+    hsqldbVersion = '2.7.1'
     h2Version = '2.3.230'
     junitJupiterVersion = '5.10.2'
     lombokVersion = '1.18.34'
@@ -39,7 +40,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
-    implementation 'org.hsqldb:hsqldb:2.7.1'
+    runtimeOnly "org.hsqldb:hsqldb:${hsqldbVersion}"
     runtimeOnly "com.h2database:h2:${h2Version}"
     runtimeOnly "org.postgresql:postgresql:${postgresqlVersion}"
     compileOnly "org.projectlombok:lombok:${lombokVersion}"
