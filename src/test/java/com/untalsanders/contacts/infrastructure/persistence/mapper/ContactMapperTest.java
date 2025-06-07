@@ -1,7 +1,9 @@
-package io.github.untalsanders.contacts.infrastructure.persistence.mapper;
+package com.untalsanders.contacts.infrastructure.persistence.mapper;
 
-import io.github.untalsanders.contacts.domain.model.Contact;
-import io.github.untalsanders.contacts.infrastructure.persistence.entity.ContactEntity;
+import com.untalsanders.contacts.domain.model.Contact;
+import com.untalsanders.contacts.infrastructure.persistence.entity.ContactEntity;
+import com.untalsanders.contacts.infrastructure.persistence.mapper.ContactMapper;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

@@ -5,7 +5,6 @@ import com.untalsanders.contacts.application.usecase.CreateContactUseCase;
 import com.untalsanders.contacts.application.usecase.RetrieveContactUseCase;
 import com.untalsanders.contacts.application.usecase.UpdateContactUseCase;
 import com.untalsanders.contacts.domain.model.Contact;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,7 +23,6 @@ public class ContactController {
     private final UpdateContactUseCase updateContactUseCase;
     private final DeleteContactService deleteContactService;
 
-    @Autowired
     public ContactController(
         CreateContactUseCase createContactUseCase,
         RetrieveContactUseCase retrieveContactUseCase,

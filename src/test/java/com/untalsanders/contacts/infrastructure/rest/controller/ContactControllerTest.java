@@ -1,4 +1,4 @@
-package io.github.untalsanders.contacts.infrastructure.rest.controller;
+package com.untalsanders.contacts.infrastructure.rest.controller;
 
 import org.springframework.boot.actuate.autoconfigure.wavefront.WavefrontProperties;
 import org.springframework.boot.test.context.SpringBootTest;

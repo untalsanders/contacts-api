@@ -1,7 +1,8 @@
-package io.github.untalsanders.contacts.application.service;
+package com.untalsanders.contacts.application.service;
 
-import io.github.untalsanders.contacts.domain.model.Contact;
-import io.github.untalsanders.contacts.domain.repository.ContactRepository;
+import com.untalsanders.contacts.application.service.CreateContactService;
+import com.untalsanders.contacts.domain.model.Contact;
+import com.untalsanders.contacts.domain.repository.ContactRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
