@@ -8,8 +8,10 @@ import com.untalsanders.contacts.infrastructure.persistence.entity.ContactEntity
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.Collection;
@@ -17,6 +19,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
+@RequiredArgsConstructor(onConstructor_ = {@Autowired})
 public class JpaContactRepository implements ContactRepository {
 
     @PersistenceContext
@@ -25,11 +28,6 @@ public class JpaContactRepository implements ContactRepository {
     private static final Logger LOG = LoggerFactory.getLogger(JpaContactRepository.class);
     private final ContactCrudRepository contactCrudRepository;
     private final ContactMapper contactMapper;
-
-    public JpaContactRepository(ContactCrudRepository contactCrudRepository, ContactMapper contactMapper) {
-        this.contactCrudRepository = contactCrudRepository;
-        this.contactMapper = contactMapper;
-    }
 
     @Override
     public Optional<Contact> findById(Long id) {
@@ -50,20 +48,20 @@ public class JpaContactRepository implements ContactRepository {
     }
 
     @Override
-    public Contact save(Contact contact) {
-        ContactEntity contactSaved = contactCrudRepository.save(contactMapper.domainToEntity(contact));
-        LOG.info("Contact created: {}", contactSaved);
-        return contactMapper.entityToDomain(contactSaved);
+    public void save(Contact contact) {
+        ContactEntity contactEntity = contactMapper.domainToEntity(contact);
+        if (contact.getId() == null) {
+            this.em.persist(contactEntity);
+            LOG.info("Contact saved");
+        } else {
+            this.em.merge(contactEntity);
+            LOG.info("Contact updated");
+        }
     }
 
     @Override
-    public Contact update(Long id, Contact contact) {
-        ContactEntity contactEntity = contactMapper.domainToEntity(contact);
-        contactEntity.setId(contact.getId());
-        contactEntity.setFirstname(contact.getFirstname());
-        contactEntity.setLastname(contact.getLastname());
-        contactEntity.setPhone(contact.getPhone());
-        return save(contactMapper.entityToDomain(contactEntity));
+    public void update(Long id, Contact contact) {
+        // TODO
     }
 
     @Override

@@ -5,6 +5,10 @@ import com.untalsanders.contacts.application.usecase.CreateContactUseCase;
 import com.untalsanders.contacts.application.usecase.RetrieveContactUseCase;
 import com.untalsanders.contacts.application.usecase.UpdateContactUseCase;
 import com.untalsanders.contacts.domain.model.Contact;
+import com.untalsanders.contacts.infrastructure.mapper.ContactMapper;
+import com.untalsanders.contacts.rest.dto.ContactDto;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,24 +20,14 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/contacts")
+@RequiredArgsConstructor(onConstructor_ = {@Autowired})
 public class ContactController {
 
     private final CreateContactUseCase createContactUseCase;
     private final RetrieveContactUseCase retrieveContactUseCase;
     private final UpdateContactUseCase updateContactUseCase;
     private final DeleteContactService deleteContactService;
-
-    public ContactController(
-        CreateContactUseCase createContactUseCase,
-        RetrieveContactUseCase retrieveContactUseCase,
-        UpdateContactUseCase updateContactUseCase,
-        DeleteContactService deleteContactService
-    ) {
-        this.createContactUseCase = createContactUseCase;
-        this.retrieveContactUseCase = retrieveContactUseCase;
-        this.updateContactUseCase = updateContactUseCase;
-        this.deleteContactService = deleteContactService;
-    }
+    private final ContactMapper contactMapper;
 
     @GetMapping
     public ResponseEntity<List<Contact>> getAllContacts() {
@@ -46,8 +40,10 @@ public class ContactController {
     }
 
     @PostMapping
-    public ResponseEntity<Contact> createContact(@RequestBody Contact contact) {
-        return new ResponseEntity<>(createContactUseCase.createContact(contact), HttpStatus.CREATED);
+    public ResponseEntity<ContactDto> createContact(@RequestBody ContactDto contactDto) {
+        Contact contact = contactMapper.toContact(contactDto);
+        createContactUseCase.createContact(contact);
+        return new ResponseEntity<>(contactMapper.toContactDto(contact), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")

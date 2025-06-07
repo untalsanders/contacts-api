@@ -15,7 +15,7 @@ public class CreateContactService implements CreateContactUseCase {
     }
 
     @Override
-    public Contact createContact(Contact contact) {
-        return repository.save(contact);
+    public void createContact(Contact contact) {
+        repository.save(contact);
     }
 }

@@ -34,17 +34,16 @@ public interface ContactRepository {
      * @param contact the <code>Contact</code> to save
      * @return the <code>Contact</code> saved
      */
-    Contact save(Contact contact);
+    void save(Contact contact);
 
     /**
      * Update a <code>Contact</code> to the data store.
      *
      * @param id      the id for search and update
      * @param contact the <code>Contact</code> to update
-     * @return the <code>Contact</code> updated
      * @throws ContactNotFoundException in case the <code>Contact</code> with given id not exists.
      */
-    Contact update(Long id, Contact contact) throws ContactNotFoundException;
+    void update(Long id, Contact contact);
 
     /**
      * Delete a <code>Contact</code> from the data store.
