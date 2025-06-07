@@ -33,7 +33,9 @@ public class JpaContactRepository implements ContactRepository {
 
     @Override
     public Optional<Contact> findById(Long id) {
-        Contact contactFound = contactCrudRepository.findById(id).map(contactMapper::entityToDomain).orElse(null);
+        Query query = this.em.createQuery("SELECT contact FROM ContactEntity contact WHERE contact.id = :id");
+        query.setParameter("id", id);
+        Contact contactFound = contactMapper.entityToDomain((ContactEntity) query.getSingleResult());
         LOG.info("Contact found: {}", contactFound);
         return Optional.ofNullable(contactFound);
     }
