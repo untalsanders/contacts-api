@@ -1,15 +1,20 @@
 plugins {
     id 'java'
-    id 'org.springframework.boot' version '3.3.1'
-    id 'io.spring.dependency-management' version '1.1.5'
+    id 'checkstyle'
+    id 'jacoco'
+    id 'org.springframework.boot' version '3.5.0'
+    id 'io.spring.dependency-management' version '1.1.7'
 }
 
 apply plugin: 'java'
 
-group = 'io.github.untalsanders.contacts.api'
+group = 'com.untalsanders.contacts.api'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = JavaVersion.VERSION_17
-targetCompatibility = JavaVersion.VERSION_17
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_21
+}
 
 repositories {
     mavenCentral()
@@ -17,48 +22,62 @@ repositories {
 
 ext {
     assertJVersion = '3.25.1'
-    commonsLang3Version = '3.14.0'
     hibernateValidatorVersion = '8.0.0.Final'
-    h2Version = '2.2.224'
+    hsqldbVersion = '2.7.1'
+    h2Version = '2.3.230'
     junitJupiterVersion = '5.10.2'
     lombokVersion = '1.18.34'
-    mapStructVersion = '1.5.5.Final'
+    mapStructVersion = '1.6.2'
     postgresqlVersion = '42.7.3'
-    springDocOpenApiStarterWebMvcVersionUI = '2.5.0'
 }
 
 dependencies {
     // Prod
-    implementation "org.apache.commons:commons-lang3:${commonsLang3Version}"
+    implementation 'org.apache.commons:commons-lang3'
     implementation "org.mapstruct:mapstruct:${mapStructVersion}"
     implementation "org.hibernate.validator:hibernate-validator:${hibernateValidatorVersion}"
-    implementation "org.springdoc:springdoc-openapi-starter-webmvc-ui:${springDocOpenApiStarterWebMvcVersionUI}"
+    implementation "org.springdoc:springdoc-openapi-starter-webmvc-ui:2.7.0"
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    runtimeOnly "org.hsqldb:hsqldb:${hsqldbVersion}"
     runtimeOnly "com.h2database:h2:${h2Version}"
     runtimeOnly "org.postgresql:postgresql:${postgresqlVersion}"
-
     compileOnly "org.projectlombok:lombok:${lombokVersion}"
-
     // Dev
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
-
     // Annotation Processors
     annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
     annotationProcessor "org.mapstruct:mapstruct-processor:${mapStructVersion}"
-
     // Test
-    testImplementation('org.springframework.boot:spring-boot-starter-test') {
-        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
-    }
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    checkstyle "com.puppycrawl.tools:checkstyle:${checkstyle.toolVersion}"
 }
 
 test {
     useJUnitPlatform()
+    finalizedBy jacocoTestReport
+}
 
-    testLogging {
-        events 'passed', 'skipped', 'failed'
+jacocoTestReport {
+    dependsOn test
+    reports {
+        xml.required = false
+        csv.required = false
+        html.outputLocation = layout.buildDirectory.dir('jacocoHtml')
+    }
+}
+
+jacocoTestCoverageVerification {
+    dependsOn jacocoTestReport
+
+    violationRules {
+        rule {
+            enabled = true
+            limit {
+                minimum = 0.05
+            }
+        }
     }
 }
 
@@ -67,6 +86,9 @@ jar {
 }
 
 javadoc {
-    destinationDir = file("${buildDir}/docs/javadoc")
     include 'io/github/untalsanders/contacts/domain/**'
+}
+
+checkstyle {
+    toolVersion = "10.12.4"
 }
