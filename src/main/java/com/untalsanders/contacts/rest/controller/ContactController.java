@@ -1,4 +1,4 @@
-package com.untalsanders.contacts.infrastructure.rest.controller;
+package com.untalsanders.contacts.rest.controller;
 
 import com.untalsanders.contacts.application.service.DeleteContactService;
 import com.untalsanders.contacts.application.usecase.CreateContactUseCase;
